@@ -7,11 +7,19 @@
 
 import Foundation
 enum GameListyType : String{
-    case allTimeTopRated
-    case bestOf2022
+
+    
     case bestOfLastMonth
     case metacritic90plus
+    
     case lastWeekReleased
+    
     case allTimeMultiPlayer
     case allTimeSinglePlayer
+}
+
+enum gamesBetweenDates : String {
+    
+    case lastThirtyDaysReleased
+    case bestOf2022
 }
