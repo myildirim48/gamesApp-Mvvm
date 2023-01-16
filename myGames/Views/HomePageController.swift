@@ -18,6 +18,7 @@ enum Sections: Int {
 
 class HomePageController: UIViewController {
 
+    @IBOutlet weak var homePageViewAiv: UIActivityIndicatorView!
     @IBOutlet weak var homePageCollectionView: UICollectionView!
     
     private let cellNibNameKey = "HomePageCell"
@@ -27,7 +28,15 @@ class HomePageController: UIViewController {
     // Sections titles
     
     var gameResult : [GameDataModelResult] = []
-    private var totalCountOfDatas : Int = 0
+    
+    //Pagination Variables
+    fileprivate var totalCountOfDatas = 0
+    fileprivate var totalPages = 0
+    fileprivate var pageNumber = 1
+    fileprivate var isPagination = false
+    
+    fileprivate var timer : Timer?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,23 +46,23 @@ class HomePageController: UIViewController {
         fetchData()
     }
 
-    fileprivate var pageNumber = 1
-    fileprivate var isPagination = false
     
-    func fetchData() {
-        Responses.shared.fetchAllTimeBest(pageNumber:pageNumber) { result in
+    func fetchData(page: Int = 1) {
+        Responses.shared.fetchAllTimeBest(pageNumber:page) { result in
             switch result {
             case .success(let successData):
                 DispatchQueue.main.async {
-                    self.gameResult = successData.results
+                    self.gameResult += successData.results
+                    
                     self.totalCountOfDatas = successData.count
+                    
                     self.homePageCollectionView.reloadData()
+                    self.homePageViewAiv.stopAnimating()
                 }
             case .failure(_):
                 break
             }
         }
-        
     }
     
 }
@@ -89,9 +98,43 @@ extension HomePageController : UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellNibNameKey, for: indexPath) as! HomePageCell
         cell.setHomePageCell(with: gameResult[indexPath.item])
         cell.layer.cornerRadius = 10
+        
+        //Total pages counting
+        if totalCountOfDatas % 20 == 0 {
+            totalPages = totalCountOfDatas / 20
+            
+        }else {
+            totalPages = (totalCountOfDatas / 20) + 1
+            
+        }
+
+         
+        //Pagination
+        if indexPath.item == gameResult.count - 1   && !isPagination && pageNumber < totalPages {
+            
+            print(indexPath.item)
+            
+            pageNumber += 1
+            isPagination = true
+            
+            cell.homepageCellView.isHidden = true
+            cell.homepageCellAiv.startAnimating()
+
+            timer?.invalidate()
+            timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false, block: { _ in
+                self.fetchData(page: self.pageNumber)
+                            
+                cell.homepageCellView.isHidden = false
+                cell.homepageCellAiv.stopAnimating()
+                self.isPagination = false
+            })
+
+            
+        }
         return cell
     }
     
+    //Header ->
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         switch kind {
         case UICollectionView.elementKindSectionHeader:
@@ -103,6 +146,7 @@ extension HomePageController : UICollectionViewDataSource {
     }
 }
 
+//Compositional layout
 extension HomePageController: UICollectionViewDelegateFlowLayout {
     
     private func createCollectionViewLayout() -> UICollectionViewCompositionalLayout {
