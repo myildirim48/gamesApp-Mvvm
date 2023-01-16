@@ -15,6 +15,7 @@ class GameNetwork: NetworkingProtocol {
     static let shared = GameNetwork()
     
     func networkRequest<T>(request: EndPoints, completion: @escaping ((Result<T, Error>)) -> Void) where T : Decodable {
+        
         guard let url = request.url else { return print("Error at URL /GameNetwork Class/") }
         
         let task = URLSession.shared.dataTask(with: url) { data, resp, error in
@@ -27,6 +28,7 @@ class GameNetwork: NetworkingProtocol {
                 completion(.success(result))
             }catch {
                 completion(.failure(error))
+                print(error.localizedDescription)
             }
         }
         task.resume()

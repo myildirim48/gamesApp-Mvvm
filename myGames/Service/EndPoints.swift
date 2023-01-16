@@ -42,8 +42,7 @@ extension EndPoints {
                               URLQueryItem(name: "ordering", value: "ratings_count")])
         }
     }
-    
-    static func getAlltimeBest(pageNumber: Int = 1 ) -> EndPoints {
+        static func getAlltimeBest(pageNumber: Int = 1 ) -> EndPoints {
         return EndPoints(path: gamesPath,
                          queryItems: getURLQueryBase(pageNumber: pageNumber) +
                          [URLQueryItem(name: "ordering", value: "ratings_count")])

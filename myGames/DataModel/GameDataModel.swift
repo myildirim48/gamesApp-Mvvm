@@ -7,19 +7,24 @@
 
 import Foundation
 // MARK: - GamesModel
-struct GameDataModel: Decodable {
+struct GameDataModel: Codable {
     let count: Int
     let results: [GameDataModelResult]
 }
 
 // MARK: - Result
-struct GameDataModelResult: Decodable {
-    let name: String
-    let released: String
+struct GameDataModelResult: Codable {
+    let name: String?
+    let released: String?
     let backgroundImage: String
     let metacritic: Int?
     let id: Int
     let genres: [Genre]
+    
+    enum CodingKeys: String, CodingKey {
+        case name,released,metacritic,id,genres
+        case backgroundImage = "background_image"
+    }
 }
 
 //MARK: - Genres

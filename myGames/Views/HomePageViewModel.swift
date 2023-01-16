@@ -13,20 +13,4 @@ protocol HomePageViewModelDeleagate: AnyObject {
 
 class HomePageViewModel {
     weak var delegate : HomePageViewModelDeleagate?
-    
-//    private(set) var gameData : [GameDataModelResult] = []
-
-    
-    private var pageNumber = 1
-    
-    func fetchData() {
-        Responses.shared.fetchAllTimeBest(pageNumber:pageNumber) { result in
-            switch result {
-            case .success(let successData):
-                self.delegate?.didUpdateData(successData.results)
-            case .failure(_):
-                break
-            }
-        }
-    }
 }
