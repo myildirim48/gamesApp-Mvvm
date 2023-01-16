@@ -25,6 +25,7 @@
 		74A5AB36297089BC0089A9EE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 74A5AB35297089BC0089A9EE /* Assets.xcassets */; };
 		74A5AB39297089BC0089A9EE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74A5AB37297089BC0089A9EE /* LaunchScreen.storyboard */; };
 		74D4006A297576A000004BC7 /* DataTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D40069297576A000004BC7 /* DataTransform.swift */; };
+		74D4006C29757B0500004BC7 /* HomePageCollectionViewHeaderResuableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D4006B29757B0500004BC7 /* HomePageCollectionViewHeaderResuableCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +50,7 @@
 		74A5AB3A297089BC0089A9EE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		74A5AB40297089DF0089A9EE /* ReadME.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = ReadME.md; sourceTree = "<group>"; };
 		74D40069297576A000004BC7 /* DataTransform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTransform.swift; sourceTree = "<group>"; };
+		74D4006B29757B0500004BC7 /* HomePageCollectionViewHeaderResuableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageCollectionViewHeaderResuableCell.swift; sourceTree = "<group>"; };
 		AEE4DD6E4A07963DCD122D5C /* Pods-myGames.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-myGames.debug.xcconfig"; path = "Target Support Files/Pods-myGames/Pods-myGames.debug.xcconfig"; sourceTree = "<group>"; };
 		BD52FA926F2CCA66E3F5D353 /* Pods_myGames.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_myGames.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -90,6 +92,7 @@
 			children = (
 				74176ED929747823001FE0D1 /* HomePageCell.swift */,
 				74176EDA29747823001FE0D1 /* HomePageCell.xib */,
+				74D4006B29757B0500004BC7 /* HomePageCollectionViewHeaderResuableCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -300,6 +303,7 @@
 				7490128F297325A500F27CDB /* EndPoints.swift in Sources */,
 				74901289297323EF00F27CDB /* ApiKey.swift in Sources */,
 				74901291297328F500F27CDB /* GameListType.swift in Sources */,
+				74D4006C29757B0500004BC7 /* HomePageCollectionViewHeaderResuableCell.swift in Sources */,
 				74A5AB2D297089BB0089A9EE /* AppDelegate.swift in Sources */,
 				74176EDB29747823001FE0D1 /* HomePageCell.swift in Sources */,
 				74A5AB2F297089BB0089A9EE /* SceneDelegate.swift in Sources */,

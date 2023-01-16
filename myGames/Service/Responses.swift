@@ -14,4 +14,6 @@ class Responses {
         GameNetwork.shared.networkRequest(request: EndPoints.getAlltimeBest(pageNumber: pageNumber), completion: completion)
     }
     
+    
+    
 }

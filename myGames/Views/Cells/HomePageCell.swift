@@ -10,6 +10,8 @@ import Kingfisher
 
 class HomePageCell: UICollectionViewCell {
 
+    @IBOutlet weak var homepageCellView: UIView!
+    @IBOutlet weak var homepageCellAiv: UIActivityIndicatorView!
     @IBOutlet weak var genresLabel: UILabel!
     @IBOutlet weak var releadeDateLabel: UILabel!
     @IBOutlet weak var metascoreButtonValue: UIButton!
