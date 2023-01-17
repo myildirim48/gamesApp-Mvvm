@@ -72,7 +72,7 @@
                                 </buttonConfiguration>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" systemColor="systemGray5Color"/>
                         <constraints>
                             <constraint firstItem="gEk-5w-JIH" firstAttribute="top" secondItem="QeY-b9-7Na" secondAttribute="bottom" constant="8" id="0uh-dF-QM1"/>
                             <constraint firstItem="IyZ-QP-5Zm" firstAttribute="leading" secondItem="2Qf-7X-ZjF" secondAttribute="leading" constant="8" id="1x7-nO-QRQ"/>
@@ -101,6 +101,7 @@
                 </subviews>
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="osW-xy-5db" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="140" id="4Th-8g-WqS"/>
                 <constraint firstItem="2Qf-7X-ZjF" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="8zv-1k-bcz"/>
@@ -125,8 +126,8 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        <systemColor name="systemGray5Color">
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

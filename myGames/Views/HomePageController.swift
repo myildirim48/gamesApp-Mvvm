@@ -24,10 +24,10 @@ class HomePageController: UIViewController {
     private let cellNibNameKey = "HomePageCell"
     private let headerCellKey = "homePageHeaderCell"
     
-    private let sectionTitles : [String] = ["All Time Best"]
+    private let sectionTitles : [String] = ["All Time Best","Best Of 2022","Released in last 30 days"]
     // Sections titles
     
-    var gameResult : [GameDataModelResult] = []
+    var gameResultGroup = [GameDataModel]()
     
     //Pagination Variables
     fileprivate var totalCountOfDatas = 0
@@ -41,20 +41,45 @@ class HomePageController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        fetchAllTimeBestData()
+        
+        fetchBestOf2022()
+        
         setupCollectionView()
         
-        fetchData()
     }
-
     
-    func fetchData(page: Int = 1) {
+    //MARK: - data fetch functions
+    func fetchAllTimeBestData(page: Int = 1) {
         Responses.shared.fetchAllTimeBest(pageNumber:page) { result in
             switch result {
             case .success(let successData):
                 DispatchQueue.main.async {
-                    self.gameResult += successData.results
                     
-                    self.totalCountOfDatas = successData.count
+                    if self.gameResultGroup.count > 0 {
+                        self.gameResultGroup[0].results += successData.results
+                    }else {
+                        self.gameResultGroup.append(successData)
+                    }
+                    self.homePageCollectionView.reloadData()
+                    self.homePageViewAiv.stopAnimating()
+                }
+            case .failure(_):
+                break
+            }
+        }
+    }
+    
+    func fetchBestOf2022(page: Int = 1) {
+        Responses.shared.fetchBestof2022(pageNumber: page) { resultbest in
+            switch resultbest {
+            case .success(let success):
+                DispatchQueue.main.async {
+                    if self.gameResultGroup.count > 1 {
+                        self.gameResultGroup[1].results += success.results
+                    }else {
+                        self.gameResultGroup.append(success)
+                    }
                     
                     self.homePageCollectionView.reloadData()
                     self.homePageViewAiv.stopAnimating()
@@ -63,6 +88,10 @@ class HomePageController: UIViewController {
                 break
             }
         }
+    }
+    
+    func fetchLast30DaysReleased(page: Int = 1){
+        
     }
     
 }
@@ -81,57 +110,81 @@ extension HomePageController : UICollectionViewDelegate {
 
 }
 
+
+//MARK: - CollectionView DataSource and Pagination
 extension HomePageController : UICollectionViewDataSource {
 
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        sectionTitles.count
-        
+        return gameResultGroup.count
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return gameResult.count
+        return gameResultGroup[section].results.count
         
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let gameDataResult = gameResultGroup[indexPath.section].results
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellNibNameKey, for: indexPath) as! HomePageCell
-        cell.setHomePageCell(with: gameResult[indexPath.item])
+        cell.setHomePageCell(with: gameDataResult[indexPath.item])
         cell.layer.cornerRadius = 10
         
-        //Total pages counting
         if totalCountOfDatas % 20 == 0 {
-            totalPages = totalCountOfDatas / 20
+            totalPages = gameResultGroup[indexPath.section].count / 20
             
         }else {
             totalPages = (totalCountOfDatas / 20) + 1
-            
         }
-
-         
-        //Pagination
-        if indexPath.item == gameResult.count - 1   && !isPagination && pageNumber < totalPages {
-            
-            print(indexPath.item)
-            
-            pageNumber += 1
-            isPagination = true
-            
-            cell.homepageCellView.isHidden = true
-            cell.homepageCellAiv.startAnimating()
-
-            timer?.invalidate()
-            timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false, block: { _ in
-                self.fetchData(page: self.pageNumber)
-                            
-                cell.homepageCellView.isHidden = false
-                cell.homepageCellAiv.stopAnimating()
-                self.isPagination = false
-            })
-
-            
+        
+        switch indexPath.section {
+        case 0 :
+            if indexPath.item == gameDataResult.count - 1   && !isPagination && pageNumber < totalPages {
+                
+                pageNumber += 1
+                isPagination = true
+                
+                cell.homepageCellView.isHidden = true
+                cell.homepageCellAiv.startAnimating()
+                
+                timer?.invalidate()
+                timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false, block: { _ in
+                    
+                    self.fetchAllTimeBestData(page: self.pageNumber)
+                    
+                    cell.homepageCellView.isHidden = false
+                    cell.homepageCellAiv.stopAnimating()
+                    self.isPagination = false
+                })
+            }
+            return cell
+        case 1:
+            if indexPath.item == gameDataResult.count - 1   && !isPagination && pageNumber < totalPages {
+                
+                pageNumber += 1
+                isPagination = true
+                
+                cell.homepageCellView.isHidden = true
+                cell.homepageCellAiv.startAnimating()
+                
+                timer?.invalidate()
+                timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false, block: { _ in
+                    
+                    self.fetchBestOf2022(page: self.pageNumber)
+                    cell.homepageCellView.isHidden = false
+                    cell.homepageCellAiv.stopAnimating()
+                    self.isPagination = false
+                })
+                return cell
+            }
+        default:
+            break
         }
+        //Total pages counting
+   
         return cell
+        
     }
     
     //Header ->
@@ -174,7 +227,7 @@ extension HomePageController: UICollectionViewDelegateFlowLayout {
         // section
         let section = NSCollectionLayoutSection(group: group)
         section.orthogonalScrollingBehavior = .continuous
-        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 65, trailing: 0)
         section.boundarySupplementaryItems = [self.supplementaryHeaderItem()]
                 
         // return

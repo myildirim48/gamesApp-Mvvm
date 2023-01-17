@@ -9,7 +9,7 @@ import Foundation
 // MARK: - GamesModel
 struct GameDataModel: Codable {
     let count: Int
-    let results: [GameDataModelResult]
+    var results: [GameDataModelResult]
 }
 
 // MARK: - Result
