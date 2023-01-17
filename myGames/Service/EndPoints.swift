@@ -34,7 +34,7 @@ extension EndPoints {
             return EndPoints(path: gamesPath,
                              queryItems: getURLQueryBase(pageNumber: pageNumber) +
                              [URLQueryItem(name: "dates", value: dateFrom + "," + dateTo),
-                              URLQueryItem(name: "ordering", value: "-released")])
+                              URLQueryItem(name: "ordering", value: "released")])
         case .bestOf2022:
             return EndPoints(path: gamesPath,
                              queryItems: getURLQueryBase(pageNumber: pageNumber) +
