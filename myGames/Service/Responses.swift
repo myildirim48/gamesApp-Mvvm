@@ -26,4 +26,10 @@ class Responses {
         GameNetwork.shared.networkRequest(request: EndPoints.getGamesbyDate(category: gamesBetweenDates.lastThirtyDaysReleased, pageNumber: pageNumber, dateFrom:dateFrom , dateTo: dateTo), completion: completion)
     }
     
+    //Fetch metacritic +90
+    
+    func feetchMetacritic(pageNumber: Int,completion: @escaping(Result<GameDataModel,Error>) -> ()) {
+        GameNetwork.shared.networkRequest(request: EndPoints.getMetaCriticPlus90(pageNumber: pageNumber), completion: completion)
+    }
+    
 }

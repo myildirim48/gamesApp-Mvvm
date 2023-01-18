@@ -48,7 +48,7 @@ extension EndPoints {
                          [URLQueryItem(name: "ordering", value: "ratings_count")])
     }
     
-    static func fetchMetaCriticPlus90(pageNumber: Int) -> EndPoints {
+    static func getMetaCriticPlus90(pageNumber: Int) -> EndPoints {
         return EndPoints(path: gamesPath, queryItems: getURLQueryBase(pageNumber: pageNumber) +
                          [URLQueryItem(name: "metacritic", value: "90,99")])
     }

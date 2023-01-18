@@ -16,7 +16,7 @@ class HomePageController: UIViewController {
     private let cellNibNameKey = "HomePageCell"
     private let headerCellKey = "homePageHeaderCell"
     
-    private let sectionTitles : [String] = ["All Time Best","Best Of 2022","Released in last week"]
+    private let sectionTitles : [String] = ["All Time Best","Best Of 2022","Released in last week","Metascore +90"]
     // Sections titles
     
     var gameResultGroup = [GameDataModel]()
@@ -24,6 +24,7 @@ class HomePageController: UIViewController {
     var gameResultFirst : GameDataModel?
     var gameResultSecond : GameDataModel?
     var gameResultThird : GameDataModel?
+    var gameResultFourth : GameDataModel?
     
     //Pagination Variables
     fileprivate var totalCountOfDatas = 0
@@ -31,6 +32,7 @@ class HomePageController: UIViewController {
     fileprivate var pageNumOfBestOfAll = 1
     fileprivate var pageNumOfBestOf2022 = 1
     fileprivate var pageNumOfLastWeekReleased = 1
+    fileprivate var pageNumOfMetacritic = 1
     fileprivate var isPagination = false
     
     fileprivate var timer : Timer?
@@ -138,10 +140,35 @@ class HomePageController: UIViewController {
         
     }
     
+    func fetchMetacritic(page:Int) {
+        self.dispatchGroup.enter()
+        Responses.shared.feetchMetacritic(pageNumber: page) { resultMeta in
+            switch resultMeta {
+            case.success(let successData):
+                if self.gameResultGroup.count > 2 {
+                    DispatchQueue.main.async {
+                        self.gameResultGroup[3].results += successData.results
+                        self.homePageCollectionView.reloadData()
+                    }
+                }else {
+                    print("3")
+                    self.queue.async(group: self.dispatchGroup) {
+                        self.gameResultFourth = successData
+                    }
+                    self.dispatchGroup.leave()
+                }
+            case .failure(_):
+                break
+            }
+        }
+        
+    }
+    
     func fetchAllDatasWithGroup() {
         fetchAllTimeBestData(page: pageNumOfBestOfAll)
         fetchLast30DaysReleased(page: pageNumOfLastWeekReleased)
         fetchBestOf2022(page: pageNumOfBestOf2022)
+        fetchMetacritic(page: pageNumOfMetacritic)
         
         dispatchGroup.notify(queue: .main) { [self] in
             if let data1 = gameResultFirst{
@@ -152,6 +179,9 @@ class HomePageController: UIViewController {
             }
             if let data3 = gameResultThird{
                 gameResultGroup.append(data3)
+            }
+            if let data4 = gameResultFourth {
+                gameResultGroup.append(data4)
             }
             
             self.homePageCollectionView.reloadData()
@@ -201,6 +231,9 @@ extension HomePageController : UICollectionViewDataSource {
         }else {
             totalPages = (totalCountOfDatas / 20) + 1
         }
+        
+        
+        //I did this control here for performance. indexpath 18+ checking for pagination. from api in every response total 20 result is coming
         
         if indexPath.item >= 18 {
             switch indexPath.section {
@@ -262,6 +295,27 @@ extension HomePageController : UICollectionViewDataSource {
                     timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false, block: { _ in
                         
                         self.fetchLast30DaysReleased(page: self.pageNumOfLastWeekReleased)
+                        
+                        cell.homepageCellView.isHidden = false
+                        cell.homepageCellAiv.stopAnimating()
+                        self.isPagination = false
+                    })
+                    return cell
+                }
+            case 3:
+                if indexPath.item == gameDataResult.count - 1  && !isPagination && pageNumOfMetacritic <= totalPages {
+                    print(indexPath.item)
+                    
+                    pageNumOfMetacritic += 1
+                    isPagination = true
+                    
+                    cell.homepageCellView.isHidden = true
+                    cell.homepageCellAiv.startAnimating()
+                    
+                    timer?.invalidate()
+                    timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false, block: { _ in
+                        
+                        self.fetchMetacritic(page: self.pageNumOfMetacritic)
                         
                         cell.homepageCellView.isHidden = false
                         cell.homepageCellAiv.stopAnimating()

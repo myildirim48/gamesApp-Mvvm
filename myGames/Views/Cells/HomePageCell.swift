@@ -28,6 +28,7 @@ class HomePageCell: UICollectionViewCell {
     func setupUI() {
         genresLabel.text = "Genres : "
         releadeDateLabel.text = "Release Date : "
+        gameNameLabel.addShadow()
     }
     
     func setHomePageCell(with model: GameDataModelResult) {

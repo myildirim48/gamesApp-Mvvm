@@ -26,6 +26,7 @@
 		74A5AB39297089BC0089A9EE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74A5AB37297089BC0089A9EE /* LaunchScreen.storyboard */; };
 		74D4006A297576A000004BC7 /* DataTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D40069297576A000004BC7 /* DataTransform.swift */; };
 		74D4006C29757B0500004BC7 /* HomePageCollectionViewHeaderResuableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D4006B29757B0500004BC7 /* HomePageCollectionViewHeaderResuableCell.swift */; };
+		74D4006E297833B200004BC7 /* UILabel+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D4006D297833B200004BC7 /* UILabel+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +52,7 @@
 		74A5AB40297089DF0089A9EE /* ReadME.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = ReadME.md; sourceTree = "<group>"; };
 		74D40069297576A000004BC7 /* DataTransform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTransform.swift; sourceTree = "<group>"; };
 		74D4006B29757B0500004BC7 /* HomePageCollectionViewHeaderResuableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageCollectionViewHeaderResuableCell.swift; sourceTree = "<group>"; };
+		74D4006D297833B200004BC7 /* UILabel+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extensions.swift"; sourceTree = "<group>"; };
 		AEE4DD6E4A07963DCD122D5C /* Pods-myGames.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-myGames.debug.xcconfig"; path = "Target Support Files/Pods-myGames/Pods-myGames.debug.xcconfig"; sourceTree = "<group>"; };
 		BD52FA926F2CCA66E3F5D353 /* Pods_myGames.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_myGames.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -111,6 +113,7 @@
 				7490128D2973257700F27CDB /* Constans */,
 				74901290297328F500F27CDB /* GameListType.swift */,
 				74D40069297576A000004BC7 /* DataTransform.swift */,
+				74D4006D297833B200004BC7 /* UILabel+Extensions.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -299,6 +302,7 @@
 				74A5AB31297089BB0089A9EE /* HomePageController.swift in Sources */,
 				74D4006A297576A000004BC7 /* DataTransform.swift in Sources */,
 				74901286297323E300F27CDB /* GameDataModel.swift in Sources */,
+				74D4006E297833B200004BC7 /* UILabel+Extensions.swift in Sources */,
 				74176ED429746A2E001FE0D1 /* Networking.swift in Sources */,
 				7490128F297325A500F27CDB /* EndPoints.swift in Sources */,
 				74901289297323EF00F27CDB /* ApiKey.swift in Sources */,
