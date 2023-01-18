@@ -23,12 +23,12 @@ extension EndPoints {
         return components.url
     }
     
-    static func getURLQueryBase(pageNumber number : Int = 1) -> [URLQueryItem]{
+    static func getURLQueryBase(pageNumber number : Int) -> [URLQueryItem]{
         return [URLQueryItem(name: apiKey, value: SecretKey.key),
                 URLQueryItem(name: page, value: "\(number)")]
     }
     
-    static func getGamesbyDate(category: gamesBetweenDates = .lastThirtyDaysReleased, pageNumber: Int = 1, dateFrom: String, dateTo: String) -> EndPoints{
+    static func getGamesbyDate(category: gamesBetweenDates = .lastThirtyDaysReleased, pageNumber: Int, dateFrom: String, dateTo: String) -> EndPoints{
         switch category {
         case .lastThirtyDaysReleased:
             return EndPoints(path: gamesPath,
@@ -42,10 +42,15 @@ extension EndPoints {
                               URLQueryItem(name: "ordering", value: "ratings_count")])
         }
     }
-        static func getAlltimeBest(pageNumber: Int = 1 ) -> EndPoints {
+    static func getAlltimeBest(pageNumber: Int) -> EndPoints {
         return EndPoints(path: gamesPath,
                          queryItems: getURLQueryBase(pageNumber: pageNumber) +
                          [URLQueryItem(name: "ordering", value: "ratings_count")])
+    }
+    
+    static func fetchMetaCriticPlus90(pageNumber: Int) -> EndPoints {
+        return EndPoints(path: gamesPath, queryItems: getURLQueryBase(pageNumber: pageNumber) +
+                         [URLQueryItem(name: "metacritic", value: "90,99")])
     }
     
     

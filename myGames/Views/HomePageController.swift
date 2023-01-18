@@ -7,17 +7,9 @@
 
 import UIKit
 
-enum Sections: Int {
-    case allTimeBest = 0
-//    case TrendingTv = 1
-//    case Popular = 2
-//    case UpComing = 3
-//    case TopRated = 4
-//
-}
 
 class HomePageController: UIViewController {
-
+    
     @IBOutlet weak var homePageViewAiv: UIActivityIndicatorView!
     @IBOutlet weak var homePageCollectionView: UICollectionView!
     
@@ -28,7 +20,7 @@ class HomePageController: UIViewController {
     // Sections titles
     
     var gameResultGroup = [GameDataModel]()
-
+    
     var gameResultFirst : GameDataModel?
     var gameResultSecond : GameDataModel?
     var gameResultThird : GameDataModel?
@@ -36,7 +28,9 @@ class HomePageController: UIViewController {
     //Pagination Variables
     fileprivate var totalCountOfDatas = 0
     fileprivate var totalPages = 0
-    fileprivate var pageNumber = 1
+    fileprivate var pageNumOfBestOfAll = 1
+    fileprivate var pageNumOfBestOf2022 = 1
+    fileprivate var pageNumOfLastWeekReleased = 1
     fileprivate var isPagination = false
     
     fileprivate var timer : Timer?
@@ -55,89 +49,88 @@ class HomePageController: UIViewController {
     let dispatchGroup = DispatchGroup()
     let queue = DispatchQueue.global(qos: .default)
     
-    func fetchAllTimeBestData(page: Int = 1) {
+    func fetchAllTimeBestData(page: Int) {
         self.dispatchGroup.enter()
-            Responses.shared.fetchAllTimeBest(pageNumber:page) { result in
-       
+        Responses.shared.fetchAllTimeBest(pageNumber:page) { result in
+            
             switch result {
             case .success(let successData):
-                    if self.gameResultGroup.count > 2 { //For pagination
+                if self.gameResultGroup.count > 2 { //For pagination
+                    
+                    DispatchQueue.main.async {
                         self.gameResultGroup[0].results += successData.results
-                    }else {
-                        //1
-                        print("1")
-                        self.queue.async(group:self.dispatchGroup){
-//                            self.gameResultGroup.append(successData)
-                            self.gameResultFirst = successData
-                        }
-                        
-                        
-                        self.dispatchGroup.leave()
-//
-//                        DispatchQueue.main.async {
-//                            self.homePageCollectionView.reloadData()
-//                        }
+                        self.homePageCollectionView.reloadData()
                     }
+                    
+                }else {
+                    
+                    print("1")//For bugfix
+                    
+                    self.queue.async(group:self.dispatchGroup){
+                        self.gameResultFirst = successData
+                    }
+                    self.dispatchGroup.leave()
+                }
             case .failure(_):
                 break
             }
         }
     }
     
-    func fetchBestOf2022(page: Int = 1) {
+    func fetchBestOf2022(page: Int) {
         self.dispatchGroup.enter()
         Responses.shared.fetchBestof2022(pageNumber: page) { resultBest in
-           
+            
             switch resultBest {
             case .success(let success):
-                    if self.gameResultGroup.count > 2 { //For pagination
+                //For pagination --->
+                if self.gameResultGroup.count > 2 {
+                    DispatchQueue.main.async {
                         self.gameResultGroup[1].results += success.results
-                    }else{
-                        print("2")
-                        self.queue.async(group:self.dispatchGroup) {
-//                            self.gameResultGroup.append(success)
-                            self.gameResultSecond = success
-                        }
-//                        DispatchQueue.main.async {
-//                            self.homePageCollectionView.reloadData()
-//                        }
-                        self.dispatchGroup.leave()
+                        self.homePageCollectionView.reloadData()
                     }
+                }else{
+                    print("2")
+                    self.queue.async(group:self.dispatchGroup) {
+                        self.gameResultSecond = success
+                    }
+                    self.dispatchGroup.leave()
+                }
             case .failure(_):
                 break
             }
         }
     }
     
-  
     
-    func fetchLast30DaysReleased(page: Int = 1){
+    
+    func fetchLast30DaysReleased(page: Int){
         
+        //---> Takes today's date and minus 7 days from today
         let toDate = Date()
         guard let fromDate = Calendar.current.date(byAdding: .day, value: -7, to: toDate) else { return }
         
         let dateTodayString = DataTransform.shared.dateToString(toDate)
         let dateFromString = DataTransform.shared.dateToString(fromDate)
+        //---> Takes today's date and minus 7 days from today
         
         self.dispatchGroup.enter()
         Responses.shared.fetchInLast30Days(pageNumber: page, dateFrom: dateFromString, dateTo: dateTodayString) { lastResult in
             
             switch lastResult {
             case .success(let successLast):
-                    if self.gameResultGroup.count > 2 {
+                if self.gameResultGroup.count > 2 {
+                    DispatchQueue.main.async {
                         self.gameResultGroup[2].results += successLast.results
-                    }else{
-                        print("3")
-                        self.queue.async(group:self.dispatchGroup) {
-//                            self.gameResultGroup.append(successLast)
-                            self.gameResultThird = successLast
-                        }
-                        
-                        self.dispatchGroup.leave()
-//                        DispatchQueue.main.async {
-//                            self.homePageCollectionView.reloadData()
-//                        }
+                        self.homePageCollectionView.reloadData()
                     }
+                }else{
+                    print("3")
+                    self.queue.async(group:self.dispatchGroup) {
+                        self.gameResultThird = successLast
+                    }
+                    self.dispatchGroup.leave()
+                }
             case .failure(let err):
                 print("Error while fetching data @30Days Released",err.localizedDescription)
             }
@@ -146,9 +139,9 @@ class HomePageController: UIViewController {
     }
     
     func fetchAllDatasWithGroup() {
-        fetchAllTimeBestData()
-        fetchLast30DaysReleased()
-        fetchBestOf2022()
+        fetchAllTimeBestData(page: pageNumOfBestOfAll)
+        fetchLast30DaysReleased(page: pageNumOfLastWeekReleased)
+        fetchBestOf2022(page: pageNumOfBestOf2022)
         
         dispatchGroup.notify(queue: .main) { [self] in
             if let data1 = gameResultFirst{
@@ -160,7 +153,7 @@ class HomePageController: UIViewController {
             if let data3 = gameResultThird{
                 gameResultGroup.append(data3)
             }
-      
+            
             self.homePageCollectionView.reloadData()
             self.homePageViewAiv.stopAnimating()
         }
@@ -179,7 +172,7 @@ extension HomePageController {
 
 extension HomePageController : UICollectionViewDelegate {
     // TO:DO did select to detailVC
-
+    
 }
 
 
@@ -209,79 +202,79 @@ extension HomePageController : UICollectionViewDataSource {
             totalPages = (totalCountOfDatas / 20) + 1
         }
         
-        if indexPath.item >= 16 {
-        switch indexPath.section {
-        case 0 :
-            if indexPath.item == gameDataResult.count - 1   && !isPagination && pageNumber < totalPages {
-                
-                pageNumber += 1
-                isPagination = true
-                
-                cell.homepageCellView.isHidden = true
-                cell.homepageCellAiv.startAnimating()
-                
-                timer?.invalidate()
-                timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false, block: { _ in
+        if indexPath.item >= 18 {
+            switch indexPath.section {
+            case 0 :
+                if indexPath.item == gameDataResult.count - 1   && !isPagination && pageNumOfBestOfAll < totalPages {
                     
-                    self.fetchAllTimeBestData(page: self.pageNumber)
+                    pageNumOfBestOfAll += 1
+                    isPagination = true
                     
-                    cell.homepageCellView.isHidden = false
+                    cell.homepageCellView.isHidden = true
+                    cell.homepageCellAiv.startAnimating()
                     
-                    collectionView.reloadData()
-                    cell.homepageCellAiv.stopAnimating()
-                    
-                    self.isPagination = false
-                })
-            }
-            return cell
-        case 1:
-            if indexPath.item == gameDataResult.count - 1   && !isPagination && pageNumber < totalPages {
-                
-                
-                pageNumber += 1
-                isPagination = true
-                
-                cell.homepageCellView.isHidden = true
-                cell.homepageCellAiv.startAnimating()
-                
-                timer?.invalidate()
-                timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false, block: { _ in
-                    
-                    self.fetchBestOf2022(page: self.pageNumber)
-                    cell.homepageCellView.isHidden = false
-                    
-                    self.homePageCollectionView.reloadData()
-                    cell.homepageCellAiv.stopAnimating()
-                    self.isPagination = false
-                })
+                    timer?.invalidate()
+                    timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false, block: { _ in
+                        
+                        self.fetchAllTimeBestData(page: self.pageNumOfBestOfAll)
+                        
+                        cell.homepageCellView.isHidden = false
+                        
+                        cell.homepageCellAiv.stopAnimating()
+                        
+                        self.isPagination = false
+                    })
+                }
                 return cell
-            }
-        case 2:
-            print(indexPath.item)
-            if indexPath.item == gameDataResult.count - 1  && !isPagination && pageNumber <= totalPages {
+            case 1:
+                if indexPath.item == gameDataResult.count - 1   && !isPagination && pageNumOfBestOf2022 < totalPages {
+                    
+                    
+                    pageNumOfBestOf2022 += 1
+                    isPagination = true
+                    
+                    cell.homepageCellView.isHidden = true
+                    cell.homepageCellAiv.startAnimating()
+                    
+                    timer?.invalidate()
+                    timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false, block: { _ in
+                        
+                        self.fetchBestOf2022(page: self.pageNumOfBestOf2022)
+                        
+                        cell.homepageCellView.isHidden = false
+                        cell.homepageCellAiv.stopAnimating()
+                        
+                        self.isPagination = false
+                    })
+                    return cell
+                }
+            case 2:
                 print(indexPath.item)
-                pageNumber += 1
-                isPagination = true
-                
-                cell.homepageCellView.isHidden = true
-                cell.homepageCellAiv.startAnimating()
-                
-                timer?.invalidate()
-                timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false, block: { _ in
+                if indexPath.item == gameDataResult.count - 1  && !isPagination && pageNumOfLastWeekReleased <= totalPages {
+                    print(indexPath.item)
+                    pageNumOfLastWeekReleased += 1
+                    isPagination = true
                     
-                    self.fetchLast30DaysReleased(page: self.pageNumber)
-                    cell.homepageCellView.isHidden = false
-                    cell.homepageCellAiv.stopAnimating()
-                    self.isPagination = false
-                })
-                return cell
+                    cell.homepageCellView.isHidden = true
+                    cell.homepageCellAiv.startAnimating()
+                    
+                    timer?.invalidate()
+                    timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false, block: { _ in
+                        
+                        self.fetchLast30DaysReleased(page: self.pageNumOfLastWeekReleased)
+                        
+                        cell.homepageCellView.isHidden = false
+                        cell.homepageCellAiv.stopAnimating()
+                        self.isPagination = false
+                    })
+                    return cell
+                }
+            default:
+                break
             }
-        default:
-            break
-        }
         }
         //Total pages counting
-   
+        
         return cell
         
     }
@@ -302,36 +295,36 @@ extension HomePageController : UICollectionViewDataSource {
 extension HomePageController: UICollectionViewDelegateFlowLayout {
     
     private func createCollectionViewLayout() -> UICollectionViewCompositionalLayout {
-    return UICollectionViewCompositionalLayout { (section, _) -> NSCollectionLayoutSection? in
-      
-        // item
-          let item = NSCollectionLayoutItem(
-            layoutSize: NSCollectionLayoutSize(
-                widthDimension: .fractionalWidth(1.20),
-                heightDimension: .fractionalHeight(1.30)))
-          item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 5, bottom: 20, trailing: 5)
-                
-        // group
-        let group = NSCollectionLayoutGroup.horizontal(
-          layoutSize: NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1/1.10),
-            heightDimension: .fractionalHeight(1/3)
-          ),
-          subitem: item,
-          count: 1
-        )
-        group.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 0, trailing: 5)
-                
-        // section
-        let section = NSCollectionLayoutSection(group: group)
-        section.orthogonalScrollingBehavior = .continuous
-        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 65, trailing: 0)
-        section.boundarySupplementaryItems = [self.supplementaryHeaderItem()]
-                
-        // return
-        return section
+        return UICollectionViewCompositionalLayout { (section, _) -> NSCollectionLayoutSection? in
+            
+            // item
+            let item = NSCollectionLayoutItem(
+                layoutSize: NSCollectionLayoutSize(
+                    widthDimension: .fractionalWidth(1.20),
+                    heightDimension: .fractionalHeight(1.30)))
+            item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 5, bottom: 20, trailing: 5)
+            
+            // group
+            let group = NSCollectionLayoutGroup.horizontal(
+                layoutSize: NSCollectionLayoutSize(
+                    widthDimension: .fractionalWidth(1/1.10),
+                    heightDimension: .fractionalHeight(1/3)
+                ),
+                subitem: item,
+                count: 1
+            )
+            group.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 0, trailing: 5)
+            
+            // section
+            let section = NSCollectionLayoutSection(group: group)
+            section.orthogonalScrollingBehavior = .continuous
+            section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 65, trailing: 0)
+            section.boundarySupplementaryItems = [self.supplementaryHeaderItem()]
+            
+            // return
+            return section
+        }
     }
-  }
     
     private func supplementaryHeaderItem() -> NSCollectionLayoutBoundarySupplementaryItem {
         .init(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(40)), elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
