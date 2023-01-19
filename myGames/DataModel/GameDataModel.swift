@@ -9,7 +9,7 @@ import Foundation
 // MARK: - GamesModel
 struct GameDataModel: Codable {
     let count: Int
-    let results: [GameDataModelResult]
+    var results: [GameDataModelResult]
 }
 
 // MARK: - Result
@@ -29,6 +29,6 @@ struct GameDataModelResult: Codable {
 
 //MARK: - Genres
 struct Genre: Codable {
-    let id: Int
-    let name: String
+    var id: Int?
+    var name: String?
 }
