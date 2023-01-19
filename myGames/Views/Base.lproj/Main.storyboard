@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Home-->
+        <!--Home Page Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="HomePageController" customModule="myGames" customModuleProvider="target" sceneMemberID="viewController">
@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Ek1-DL-LMD">
-                                <rect key="frame" x="0.0" y="59" width="393" height="710"/>
+                                <rect key="frame" x="0.0" y="103" width="393" height="666"/>
                                 <color key="backgroundColor" systemColor="secondaryLabelColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="kY0-Kv-8wx">
                                     <size key="itemSize" width="128" height="128"/>
@@ -28,7 +28,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <activityIndicatorView key="backgroundView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" id="zlS-kf-zo4">
-                                    <rect key="frame" x="0.0" y="0.0" width="393" height="710"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="393" height="666"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 </activityIndicatorView>
                                 <cells/>
@@ -64,19 +64,48 @@
                             <constraint firstItem="Ek1-DL-LMD" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="iKy-YP-ol9"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Home" id="ngQ-o5-45k">
-                        <imageReference key="image" image="gamecontroller.fill" catalog="system" symbolScale="default" variableValue="1"/>
-                        <color key="badgeColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <imageReference key="selectedImage" image="gamecontroller.fill" catalog="system" symbolScale="large"/>
-                    </tabBarItem>
+                    <navigationItem key="navigationItem" id="4HU-j1-IOy"/>
                     <connections>
                         <outlet property="homePageCollectionView" destination="Ek1-DL-LMD" id="bay-54-D1u"/>
                         <outlet property="homePageViewAiv" destination="zlS-kf-zo4" id="wwV-V8-ZcG"/>
+                        <segue destination="ZGY-JE-Jnx" kind="show" identifier="gotoDetailsView" id="Jj6-0o-yiD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="910.68702290076328" y="3.5211267605633805"/>
+            <point key="canvasLocation" x="1837.4045801526718" y="3.5211267605633805"/>
+        </scene>
+        <!--Details Page Controller-->
+        <scene sceneID="gSZ-q1-wiC">
+            <objects>
+                <viewController storyboardIdentifier="gameDetailPage" id="ZGY-JE-Jnx" customClass="DetailsPageController" customModule="myGames" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="U6V-TA-TJo">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Oit-1w-6A3">
+                                <rect key="frame" x="0.0" y="103" width="393" height="666"/>
+                                <color key="backgroundColor" systemColor="secondaryLabelColor"/>
+                                <color key="sectionIndexBackgroundColor" systemColor="placeholderTextColor"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Mft-5q-qVM"/>
+                        <color key="backgroundColor" systemColor="secondaryLabelColor"/>
+                        <constraints>
+                            <constraint firstItem="Mft-5q-qVM" firstAttribute="trailing" secondItem="Oit-1w-6A3" secondAttribute="trailing" id="33m-ZE-2hU"/>
+                            <constraint firstItem="Oit-1w-6A3" firstAttribute="top" secondItem="Mft-5q-qVM" secondAttribute="top" id="WjG-k9-pnh"/>
+                            <constraint firstItem="Oit-1w-6A3" firstAttribute="leading" secondItem="Mft-5q-qVM" secondAttribute="leading" id="Zs5-ys-L4R"/>
+                            <constraint firstItem="Mft-5q-qVM" firstAttribute="bottom" secondItem="Oit-1w-6A3" secondAttribute="bottom" id="xpI-MX-CjH"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="lBY-O7-Po8"/>
+                    <connections>
+                        <outlet property="detailsTableView" destination="Oit-1w-6A3" id="9qT-M9-gkx"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7Gf-HG-2mF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2754.9618320610684" y="3.5211267605633805"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="Uik-1L-ygH">
@@ -91,18 +120,45 @@
                         <color key="selectedImageTintColor" systemColor="opaqueSeparatorColor"/>
                     </tabBar>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="Smz-fn-URw"/>
+                        <segue destination="4dA-O7-QmC" kind="relationship" relationship="viewControllers" id="Smz-fn-URw"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ge8-dK-eiN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-16.030534351145036" y="3.5211267605633805"/>
         </scene>
+        <!--Home-->
+        <scene sceneID="con-JJ-Ahb">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="4dA-O7-QmC" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Home" id="ngQ-o5-45k">
+                        <imageReference key="image" image="gamecontroller.fill" catalog="system" symbolScale="default" variableValue="1"/>
+                        <color key="badgeColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <imageReference key="selectedImage" image="gamecontroller.fill" catalog="system" symbolScale="large"/>
+                    </tabBarItem>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="KII-L1-ujQ">
+                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="0.75" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="pRM-mb-pWq"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wUl-iP-CBQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="910.68702290076328" y="3.5211267605633805"/>
+        </scene>
     </scenes>
     <resources>
         <image name="gamecontroller.fill" catalog="system" width="128" height="79"/>
         <systemColor name="opaqueSeparatorColor">
             <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="placeholderTextColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.29803921568627451" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="secondaryLabelColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>

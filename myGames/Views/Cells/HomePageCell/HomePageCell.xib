@@ -98,19 +98,18 @@
                         </constraints>
                     </view>
                     <activityIndicatorView hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="osW-xy-5db">
-                        <rect key="frame" x="180" y="140" width="37" height="37"/>
+                        <rect key="frame" x="150" y="150" width="37" height="37"/>
                         <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </activityIndicatorView>
                 </subviews>
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <constraints>
-                <constraint firstItem="osW-xy-5db" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="140" id="6vR-eu-vrG"/>
+                <constraint firstItem="osW-xy-5db" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="150" id="5YO-cJ-9Gg"/>
                 <constraint firstItem="2Qf-7X-ZjF" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="8zv-1k-bcz"/>
                 <constraint firstAttribute="trailing" secondItem="2Qf-7X-ZjF" secondAttribute="trailing" id="Cff-l1-OSM"/>
                 <constraint firstItem="2Qf-7X-ZjF" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="G2h-uh-Po8"/>
-                <constraint firstAttribute="trailing" secondItem="osW-xy-5db" secondAttribute="trailing" constant="180" id="J5H-fs-aJz"/>
-                <constraint firstItem="osW-xy-5db" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="180" id="QuF-2b-gux"/>
+                <constraint firstItem="osW-xy-5db" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="150" id="nSN-dV-hqe"/>
                 <constraint firstAttribute="bottom" secondItem="2Qf-7X-ZjF" secondAttribute="bottom" id="oGW-Ne-JBc"/>
             </constraints>
             <size key="customSize" width="397" height="382"/>

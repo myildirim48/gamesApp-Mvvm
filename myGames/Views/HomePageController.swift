@@ -15,7 +15,7 @@ class HomePageController: UIViewController {
     
     private let cellNibNameKey = "HomePageCell"
     private let headerCellKey = "homePageHeaderCell"
-    
+    private let detailsPageKey = ""
     private let sectionTitles : [String] = ["All Time Best","Best Of 2022","Released in last week","Metascore +90"]
     // Sections titles
     
@@ -202,7 +202,16 @@ extension HomePageController {
 
 extension HomePageController : UICollectionViewDelegate {
     // TO:DO did select to detailVC
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+            let mainStoryBoard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        guard let gameDetailPage = mainStoryBoard.instantiateViewController(withIdentifier: "gameDetailPage") as? DetailsPageController else {
+            return
+        }
+//        gameDetailPage.gameId = ??
+        
+        navigationController?.pushViewController(gameDetailPage, animated: true)
+    }
 }
 
 
@@ -351,7 +360,7 @@ extension HomePageController: UICollectionViewDelegateFlowLayout {
             let item = NSCollectionLayoutItem(
                 layoutSize: NSCollectionLayoutSize(
                     widthDimension: .fractionalWidth(1.20),
-                    heightDimension: .fractionalHeight(1.30)))
+                    heightDimension: .fractionalHeight(1.50)))
             item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 5, bottom: 20, trailing: 5)
             
             // group
@@ -368,7 +377,7 @@ extension HomePageController: UICollectionViewDelegateFlowLayout {
             // section
             let section = NSCollectionLayoutSection(group: group)
             section.orthogonalScrollingBehavior = .continuous
-            section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 65, trailing: 0)
+            section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 75, trailing: 0)
             section.boundarySupplementaryItems = [self.supplementaryHeaderItem()]
             
             // return
