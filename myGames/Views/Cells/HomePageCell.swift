@@ -28,6 +28,7 @@ class HomePageCell: UICollectionViewCell {
     func setupUI() {
         genresLabel.text = "Genres : "
         releadeDateLabel.text = "Release Date : "
+        gameNameLabel.addShadow()
     }
     
     func setHomePageCell(with model: GameDataModelResult) {
@@ -35,7 +36,9 @@ class HomePageCell: UICollectionViewCell {
             metascoreButtonValue.titleLabel?.text = String(metaScore)
         }
         gameNameLabel.text = model.name
-        genresValueLabel.text = model.genres.map{$0.name}.joined(separator: ", ")
+        
+        genresValueLabel.text = model.genres.map{$0.name ?? ""}.joined(separator: ", ")
+
         gameImageView.kf.setImage(with: URL.init(string: model.backgroundImage))
         releaseDateValueLabel.text = model.released
         

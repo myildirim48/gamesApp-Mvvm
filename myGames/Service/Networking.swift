@@ -18,6 +18,9 @@ class GameNetwork: NetworkingProtocol {
         
         guard let url = request.url else { return print("Error at URL /GameNetwork Class/") }
         
+        //For bugfix
+        print(url)
+        
         let task = URLSession.shared.dataTask(with: url) { data, resp, error in
             if error != nil || data == nil {
                 completion(.failure(error!))

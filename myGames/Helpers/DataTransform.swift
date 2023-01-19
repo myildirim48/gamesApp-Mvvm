@@ -9,7 +9,6 @@ import Foundation
 class DataTransform {
     static var shared = DataTransform()
     
-    
     func dateToString(_ date: Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
