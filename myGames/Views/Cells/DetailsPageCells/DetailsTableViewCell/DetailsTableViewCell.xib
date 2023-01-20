@@ -20,7 +20,7 @@
                 <subviews>
                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="Oc1-mx-XOX">
                         <rect key="frame" x="0.0" y="0.0" width="347" height="295"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" systemColor="secondaryLabelColor"/>
                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="2CE-Jh-7V1">
                             <size key="itemSize" width="128" height="128"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -29,6 +29,7 @@
                         </collectionViewFlowLayout>
                     </collectionView>
                 </subviews>
+                <color key="backgroundColor" systemColor="secondaryLabelColor"/>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="Oc1-mx-XOX" secondAttribute="bottom" id="AjD-Hm-gnn"/>
                     <constraint firstItem="Oc1-mx-XOX" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="JlA-jM-S11"/>
@@ -37,15 +38,17 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <color key="backgroundColor" systemColor="secondaryLabelColor"/>
             <connections>
+                <outlet property="detailCellView" destination="H2p-sc-9uM" id="EW1-hF-EsC"/>
                 <outlet property="detailsCellCollectionView" destination="Oc1-mx-XOX" id="Qck-zn-Dtb"/>
             </connections>
             <point key="canvasLocation" x="298.47328244274809" y="23.591549295774648"/>
         </tableViewCell>
     </objects>
     <resources>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        <systemColor name="secondaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

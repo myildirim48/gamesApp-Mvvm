@@ -208,7 +208,9 @@ extension HomePageController : UICollectionViewDelegate {
         guard let gameDetailPage = mainStoryBoard.instantiateViewController(withIdentifier: "gameDetailPage") as? DetailsPageController else {
             return
         }
-//        gameDetailPage.gameId = ??
+        let gameId = gameResultGroup[indexPath.section].results[indexPath.item].id
+
+        gameDetailPage.gameIdDetails = gameId
         
         navigationController?.pushViewController(gameDetailPage, animated: true)
     }

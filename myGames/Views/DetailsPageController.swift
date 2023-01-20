@@ -12,47 +12,50 @@ class DetailsPageController: UIViewController {
     
     @IBOutlet weak var detailsTableView: UITableView!
     
-    var gameId : Int = 0
+    var gameIdDetails : Int = 0
+    
+    private var screenShotsArr : [ScreenshotResult] = []
 
     private var tableViewCellid = "DetailsTableViewCell"
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupTableView()
         
+        fetchScreenShots(gameid: gameIdDetails)
     }
-    
     private func setupTableView(){
         detailsTableView.delegate = self
         detailsTableView.dataSource = self
         detailsTableView.register(.init(nibName: tableViewCellid, bundle: nil), forCellReuseIdentifier: tableViewCellid)
     }
+    
+    func fetchScreenShots(gameid:Int){
+         Responses.shared.fetcScreenShots(gameId: gameid) { screenShots in
+             switch screenShots {
+             case .success(let result):
+                 DispatchQueue.main.async {
+                     self.screenShotsArr = result.results
+                     self.setupTableView()
+                 }
+              case .failure(let err):
+                 print("Error @DetailsTableViewCell",err.localizedDescription)
+             }
+         }
+     }
 }
 
 extension DetailsPageController: UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.row == 0 {
             let cell = detailsTableView.dequeueReusableCell(withIdentifier: tableViewCellid, for: indexPath) as! DetailsTableViewCell
-            
+            cell.screenShotArr = screenShotsArr
             return cell
-        }else {
-            return UITableViewCell()
-        }
-
     }
-    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.row == 0 {
             return view.frame.height/3
-        }else {
-            return 150
-        }
     }
-    
-
 }
 

@@ -22,7 +22,7 @@ extension EndPoints {
         components.queryItems = queryItems
         return components.url
     }
-    
+    //QueryItem basic APIKey + Page
     static func getURLQueryBase(pageNumber number : Int) -> [URLQueryItem]{
         return [URLQueryItem(name: apiKey, value: SecretKey.key),
                 URLQueryItem(name: page, value: "\(number)")]
@@ -42,6 +42,7 @@ extension EndPoints {
                               URLQueryItem(name: "ordering", value: "ratings_count")])
         }
     }
+    
     static func getAlltimeBest(pageNumber: Int) -> EndPoints {
         return EndPoints(path: gamesPath,
                          queryItems: getURLQueryBase(pageNumber: pageNumber) +
@@ -53,5 +54,12 @@ extension EndPoints {
                          [URLQueryItem(name: "metacritic", value: "90,99")])
     }
     
+    
+    //MARK: -Details Section
+    
+    static func getScreenShots(gameId: Int) -> EndPoints {
+        return EndPoints(path: screenShotPathFunc(id: gameId),
+                         queryItems: [URLQueryItem(name: apiKey, value: SecretKey.key)])
+    }
     
 }

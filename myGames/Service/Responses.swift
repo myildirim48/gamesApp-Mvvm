@@ -21,15 +21,20 @@ class Responses {
     
     //Fetch released in last 30 days
     
-    func fetchInLast30Days(pageNumber: Int, dateFrom:String, dateTo:String, completion: @escaping(Result<GameDataModel,Error>) -> ()) {
-        
-        GameNetwork.shared.networkRequest(request: EndPoints.getGamesbyDate(category: gamesBetweenDates.lastThirtyDaysReleased, pageNumber: pageNumber, dateFrom:dateFrom , dateTo: dateTo), completion: completion)
+    func fetchInLast30Days(pageNumber: Int, dateFrom:String, dateTo:String, completion: @escaping(Result<GameDataModel,Error>) -> ()) {       
+       GameNetwork.shared.networkRequest(request: EndPoints.getGamesbyDate(category: gamesBetweenDates.lastThirtyDaysReleased, pageNumber: pageNumber, dateFrom:dateFrom , dateTo: dateTo), completion: completion)
     }
     
     //Fetch metacritic +90
     
     func feetchMetacritic(pageNumber: Int,completion: @escaping(Result<GameDataModel,Error>) -> ()) {
         GameNetwork.shared.networkRequest(request: EndPoints.getMetaCriticPlus90(pageNumber: pageNumber), completion: completion)
+    }
+    
+    //MARK: - Details Responses
+    
+    func fetcScreenShots(gameId:Int,completion: @escaping(Result<Screenshot,Error>) -> ()) {
+        GameNetwork.shared.networkRequest(request: EndPoints.getScreenShots(gameId: gameId), completion: completion)
     }
     
 }

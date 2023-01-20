@@ -6,17 +6,20 @@
 //
 
 import UIKit
+import Kingfisher
 
 class DetailsTableViewCell: UITableViewCell {
-
+    
     @IBOutlet weak var detailsCellCollectionView: UICollectionView!
     
+    @IBOutlet weak var detailCellView: UIView!
     private var detailsImageCollectionCellKey = "ImageCollectionCell"
+    
+    var screenShotArr : [ScreenshotResult] = []
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        setupCollectionView()
+            setupCollectionView()
     }
     
     private func setupCollectionView() {
@@ -28,18 +31,24 @@ class DetailsTableViewCell: UITableViewCell {
 
 extension DetailsTableViewCell: UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        print(screenShotArr.count)
+        return screenShotArr.count
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-            let cell = detailsCellCollectionView.dequeueReusableCell(withReuseIdentifier: detailsImageCollectionCellKey, for: indexPath) as! ImageCollectionCell
-            cell.detailsImageView.backgroundColor = .red
+        let cell = detailsCellCollectionView.dequeueReusableCell(withReuseIdentifier: detailsImageCollectionCellKey, for: indexPath) as! ImageCollectionCell
+        
+        let screenshot = screenShotArr[indexPath.item].image
+        
+        cell.detailsImageView.kf.setImage(with: URL(string: screenshot))
         cell.detailsImageView.layer.cornerRadius = 10
-            return cell
+        detailsCellCollectionView.reloadData()
+        return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return .init(width: frame.width - 16, height: frame.height - 16)
+        return .init(width: frame.width - 8, height: frame.height - 8)
     }
 }
 

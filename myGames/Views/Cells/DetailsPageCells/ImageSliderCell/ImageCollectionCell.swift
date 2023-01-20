@@ -6,15 +6,18 @@
 //
 
 import UIKit
+import Kingfisher
 
 class ImageCollectionCell: UICollectionViewCell {
 
     @IBOutlet weak var detailsImageView: UIImageView!
-     
-    
+         
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
+        detailsImageView.layer.cornerRadius = 10
+        
     }
+     
 
 }
