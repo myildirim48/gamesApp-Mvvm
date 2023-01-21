@@ -15,7 +15,7 @@ class HomePageController: UIViewController {
     
     private let cellNibNameKey = "HomePageCell"
     private let headerCellKey = "homePageHeaderCell"
-    
+    private let detailsPageKey = ""
     private let sectionTitles : [String] = ["All Time Best","Best Of 2022","Released in last week","Metascore +90"]
     // Sections titles
     
@@ -108,13 +108,13 @@ class HomePageController: UIViewController {
     
     func fetchLast30DaysReleased(page: Int){
         
-        //---> Takes today's date and minus 7 days from today
+        //---> Takes today's date and minus 30 days from today
         let toDate = Date()
-        guard let fromDate = Calendar.current.date(byAdding: .day, value: -7, to: toDate) else { return }
+        guard let fromDate = Calendar.current.date(byAdding: .day, value: -30, to: toDate) else { return }
         
         let dateTodayString = DataTransform.shared.dateToString(toDate)
         let dateFromString = DataTransform.shared.dateToString(fromDate)
-        //---> Takes today's date and minus 7 days from today
+        //---> Takes today's date and minus 30 days from today
         
         self.dispatchGroup.enter()
         Responses.shared.fetchInLast30Days(pageNumber: page, dateFrom: dateFromString, dateTo: dateTodayString) { lastResult in
@@ -142,7 +142,7 @@ class HomePageController: UIViewController {
     
     func fetchMetacritic(page:Int) {
         self.dispatchGroup.enter()
-        Responses.shared.feetchMetacritic(pageNumber: page) { resultMeta in
+        Responses.shared.fetchMetacritic(pageNumber: page) { resultMeta in
             switch resultMeta {
             case.success(let successData):
                 if self.gameResultGroup.count > 2 {
@@ -202,7 +202,18 @@ extension HomePageController {
 
 extension HomePageController : UICollectionViewDelegate {
     // TO:DO did select to detailVC
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+            let mainStoryBoard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        guard let gameDetailPage = mainStoryBoard.instantiateViewController(withIdentifier: "gameDetailPage") as? DetailsPageController else {
+            return
+        }
+        let gameId = gameResultGroup[indexPath.section].results[indexPath.item].id
+
+        gameDetailPage.gameIdDetails = gameId
+        
+        navigationController?.pushViewController(gameDetailPage, animated: true)
+    }
 }
 
 
@@ -232,27 +243,25 @@ extension HomePageController : UICollectionViewDataSource {
             totalPages = (totalCountOfDatas / 20) + 1
         }
         
-        
         //I did this control here for performance. indexpath 18+ checking for pagination. from api in every response total 20 result is coming
         
-        if indexPath.item >= 18 {
+        if indexPath.item >= 17 {
             switch indexPath.section {
             case 0 :
                 if indexPath.item == gameDataResult.count - 1   && !isPagination && pageNumOfBestOfAll < totalPages {
                     
-                    pageNumOfBestOfAll += 1
-                    isPagination = true
-                    
                     cell.homepageCellView.isHidden = true
                     cell.homepageCellAiv.startAnimating()
                     
+                    pageNumOfBestOfAll += 1
+                    isPagination = true
+                    
                     timer?.invalidate()
-                    timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false, block: { _ in
+                    timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false, block: { _ in
                         
                         self.fetchAllTimeBestData(page: self.pageNumOfBestOfAll)
                         
                         cell.homepageCellView.isHidden = false
-                        
                         cell.homepageCellAiv.stopAnimating()
                         
                         self.isPagination = false
@@ -261,16 +270,15 @@ extension HomePageController : UICollectionViewDataSource {
                 return cell
             case 1:
                 if indexPath.item == gameDataResult.count - 1   && !isPagination && pageNumOfBestOf2022 < totalPages {
-                    
+                
+                    cell.homepageCellView.isHidden = true
+                    cell.homepageCellAiv.startAnimating()
                     
                     pageNumOfBestOf2022 += 1
                     isPagination = true
                     
-                    cell.homepageCellView.isHidden = true
-                    cell.homepageCellAiv.startAnimating()
-                    
                     timer?.invalidate()
-                    timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false, block: { _ in
+                    timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false, block: { _ in
                         
                         self.fetchBestOf2022(page: self.pageNumOfBestOf2022)
                         
@@ -284,20 +292,21 @@ extension HomePageController : UICollectionViewDataSource {
             case 2:
                 print(indexPath.item)
                 if indexPath.item == gameDataResult.count - 1  && !isPagination && pageNumOfLastWeekReleased <= totalPages {
-                    print(indexPath.item)
-                    pageNumOfLastWeekReleased += 1
-                    isPagination = true
                     
                     cell.homepageCellView.isHidden = true
                     cell.homepageCellAiv.startAnimating()
                     
+                    pageNumOfLastWeekReleased += 1
+                    isPagination = true
+                    
                     timer?.invalidate()
-                    timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false, block: { _ in
+                    timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false, block: { _ in
                         
                         self.fetchLast30DaysReleased(page: self.pageNumOfLastWeekReleased)
                         
                         cell.homepageCellView.isHidden = false
                         cell.homepageCellAiv.stopAnimating()
+                        
                         self.isPagination = false
                     })
                     return cell
@@ -306,14 +315,14 @@ extension HomePageController : UICollectionViewDataSource {
                 if indexPath.item == gameDataResult.count - 1  && !isPagination && pageNumOfMetacritic <= totalPages {
                     print(indexPath.item)
                     
-                    pageNumOfMetacritic += 1
-                    isPagination = true
-                    
                     cell.homepageCellView.isHidden = true
                     cell.homepageCellAiv.startAnimating()
                     
+                    pageNumOfMetacritic += 1
+                    isPagination = true
+                
                     timer?.invalidate()
-                    timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false, block: { _ in
+                    timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false, block: { _ in
                         
                         self.fetchMetacritic(page: self.pageNumOfMetacritic)
                         
@@ -324,11 +333,9 @@ extension HomePageController : UICollectionViewDataSource {
                     return cell
                 }
             default:
-                break
+                return cell
             }
         }
-        //Total pages counting
-        
         return cell
         
     }
@@ -355,7 +362,7 @@ extension HomePageController: UICollectionViewDelegateFlowLayout {
             let item = NSCollectionLayoutItem(
                 layoutSize: NSCollectionLayoutSize(
                     widthDimension: .fractionalWidth(1.20),
-                    heightDimension: .fractionalHeight(1.30)))
+                    heightDimension: .fractionalHeight(1.50)))
             item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 5, bottom: 20, trailing: 5)
             
             // group
@@ -372,7 +379,7 @@ extension HomePageController: UICollectionViewDelegateFlowLayout {
             // section
             let section = NSCollectionLayoutSection(group: group)
             section.orthogonalScrollingBehavior = .continuous
-            section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 65, trailing: 0)
+            section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 75, trailing: 0)
             section.boundarySupplementaryItems = [self.supplementaryHeaderItem()]
             
             // return
