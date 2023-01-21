@@ -22,36 +22,54 @@ extension EndPoints {
         components.queryItems = queryItems
         return components.url
     }
-    
-    static func getURLQueryBase(pageNumber number : Int) -> [URLQueryItem]{
+    //QueryItem basic APIKey + Page
+    static func urlQueryApiKeyPage(pageNumber number : Int) -> [URLQueryItem]{
         return [URLQueryItem(name: apiKey, value: SecretKey.key),
                 URLQueryItem(name: page, value: "\(number)")]
+    }
+    
+    //Basic QueryItem with APIKEY
+    static func urlQueryApikey() ->[URLQueryItem] {
+        return [URLQueryItem(name: apiKey, value: SecretKey.key)]
     }
     
     static func getGamesbyDate(category: gamesBetweenDates = .lastThirtyDaysReleased, pageNumber: Int, dateFrom: String, dateTo: String) -> EndPoints{
         switch category {
         case .lastThirtyDaysReleased:
             return EndPoints(path: gamesPath,
-                             queryItems: getURLQueryBase(pageNumber: pageNumber) +
+                             queryItems: urlQueryApiKeyPage(pageNumber: pageNumber) +
                              [URLQueryItem(name: "dates", value: dateFrom + "," + dateTo),
                               URLQueryItem(name: "ordering", value: "released")])
         case .bestOf2022:
             return EndPoints(path: gamesPath,
-                             queryItems: getURLQueryBase(pageNumber: pageNumber) +
+                             queryItems: urlQueryApiKeyPage(pageNumber: pageNumber) +
                              [URLQueryItem(name: "dates", value: dateFrom + "," + dateTo),
                               URLQueryItem(name: "ordering", value: "ratings_count")])
         }
     }
+    
     static func getAlltimeBest(pageNumber: Int) -> EndPoints {
         return EndPoints(path: gamesPath,
-                         queryItems: getURLQueryBase(pageNumber: pageNumber) +
+                         queryItems: urlQueryApiKeyPage(pageNumber: pageNumber) +
                          [URLQueryItem(name: "ordering", value: "ratings_count")])
     }
     
     static func getMetaCriticPlus90(pageNumber: Int) -> EndPoints {
-        return EndPoints(path: gamesPath, queryItems: getURLQueryBase(pageNumber: pageNumber) +
+        return EndPoints(path: gamesPath, queryItems: urlQueryApiKeyPage(pageNumber: pageNumber) +
                          [URLQueryItem(name: "metacritic", value: "90,99")])
     }
     
     
+    //MARK: -Details Section
+    
+    static func getScreenShots(gameId: Int) -> EndPoints {
+        return EndPoints(path: screenShotPathFunc(id: gameId),
+                         queryItems: urlQueryApikey())
+    }
+    
+    static func getDetailsOfGame(gameId: Int) -> EndPoints {
+        return EndPoints(path: detailsPath(id: gameId),
+                         queryItems: urlQueryApikey())
+    }
+
 }

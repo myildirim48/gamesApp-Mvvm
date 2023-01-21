@@ -7,6 +7,20 @@
 
 let gamesPath         : String = "/api/games"
 
+let screenShotsPath   : String = "/api/games/"
+
+func detailsPath(id:Int) -> String {
+    let idString = String(id)
+    return screenShotsPath + idString
+}// Returns --> /api/games/id
+
+func screenShotPathFunc(id:Int) -> String {
+    let idString = String(id)
+    return screenShotsPath + idString + "/screenshots"
+}// returns  -> /api/games/id/screenshots
+
+
+
 let apiKey            : String = "key"
 let page              : String = "page"
  
