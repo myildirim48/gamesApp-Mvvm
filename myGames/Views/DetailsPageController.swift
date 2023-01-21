@@ -15,6 +15,7 @@ class DetailsPageController: UIViewController {
     var gameIdDetails : Int = 0
     
     private var screenShotsArr : [ScreenshotResult] = []
+    private var gameDetaiLData : GameDetails?
 
     private var tableViewCellid = "DetailsTableViewCell"
     
@@ -22,6 +23,10 @@ class DetailsPageController: UIViewController {
         super.viewDidLoad()
         
         fetchScreenShots(gameid: gameIdDetails)
+        fetchGameDetail(gameId: gameIdDetails)
+        
+       
+        
     }
     private func setupTableView(){
         detailsTableView.delegate = self
@@ -30,7 +35,7 @@ class DetailsPageController: UIViewController {
     }
     
     func fetchScreenShots(gameid:Int){
-         Responses.shared.fetcScreenShots(gameId: gameid) { screenShots in
+         Responses.shared.fetchScreenShots(gameId: gameid) { screenShots in
              switch screenShots {
              case .success(let result):
                  DispatchQueue.main.async {
@@ -42,6 +47,17 @@ class DetailsPageController: UIViewController {
              }
          }
      }
+    
+    func fetchGameDetail(gameId: Int) {
+        Responses.shared.fetchGameDetails(gameId: gameId) { gameDetail in
+            switch gameDetail {
+            case .success(let detailData):
+                self.gameDetaiLData = detailData
+            case .failure(let err):
+                print("Error fetchGameDetail",err.localizedDescription)
+            }
+        }
+    }
 }
 
 extension DetailsPageController: UITableViewDelegate,UITableViewDataSource {

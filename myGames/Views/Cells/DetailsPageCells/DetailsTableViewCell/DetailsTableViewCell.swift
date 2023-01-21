@@ -31,7 +31,6 @@ class DetailsTableViewCell: UITableViewCell {
 
 extension DetailsTableViewCell: UICollectionViewDataSource,UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print(screenShotArr.count)
         return screenShotArr.count
         
     }
@@ -43,7 +42,6 @@ extension DetailsTableViewCell: UICollectionViewDataSource,UICollectionViewDeleg
         
         cell.detailsImageView.kf.setImage(with: URL(string: screenshot))
         cell.detailsImageView.layer.cornerRadius = 10
-        detailsCellCollectionView.reloadData()
         return cell
     }
     

@@ -142,7 +142,7 @@ class HomePageController: UIViewController {
     
     func fetchMetacritic(page:Int) {
         self.dispatchGroup.enter()
-        Responses.shared.feetchMetacritic(pageNumber: page) { resultMeta in
+        Responses.shared.fetchMetacritic(pageNumber: page) { resultMeta in
             switch resultMeta {
             case.success(let successData):
                 if self.gameResultGroup.count > 2 {
