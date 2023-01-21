@@ -28,11 +28,19 @@
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                     </collectionView>
+                    <pageControl opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="7" translatesAutoresizingMaskIntoConstraints="NO" id="7oI-o1-nxd">
+                        <rect key="frame" x="40" y="256" width="267" height="26"/>
+                        <color key="pageIndicatorTintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="currentPageIndicatorTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </pageControl>
                 </subviews>
-                <color key="backgroundColor" systemColor="secondaryLabelColor"/>
+                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="Oc1-mx-XOX" secondAttribute="bottom" id="AjD-Hm-gnn"/>
                     <constraint firstItem="Oc1-mx-XOX" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="JlA-jM-S11"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="7oI-o1-nxd" secondAttribute="trailing" constant="20" id="MMm-g8-Lmv"/>
+                    <constraint firstItem="7oI-o1-nxd" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="20" id="VcJ-go-ZWv"/>
+                    <constraint firstItem="7oI-o1-nxd" firstAttribute="bottom" secondItem="Oc1-mx-XOX" secondAttribute="bottomMargin" constant="-5" id="Vss-2n-emH"/>
                     <constraint firstAttribute="trailing" secondItem="Oc1-mx-XOX" secondAttribute="trailing" id="e54-Eh-6hu"/>
                     <constraint firstItem="Oc1-mx-XOX" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="qwK-L9-r4I"/>
                 </constraints>
@@ -42,6 +50,7 @@
             <connections>
                 <outlet property="detailCellView" destination="H2p-sc-9uM" id="EW1-hF-EsC"/>
                 <outlet property="detailsCellCollectionView" destination="Oc1-mx-XOX" id="Qck-zn-Dtb"/>
+                <outlet property="pageViewControl" destination="7oI-o1-nxd" id="IQm-xt-zVi"/>
             </connections>
             <point key="canvasLocation" x="298.47328244274809" y="23.591549295774648"/>
         </tableViewCell>

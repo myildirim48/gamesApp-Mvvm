@@ -14,9 +14,7 @@ class ImageCollectionCell: UICollectionViewCell {
          
     override func awakeFromNib() {
         super.awakeFromNib()
-        
         detailsImageView.layer.cornerRadius = 10
-        
     }
      
 

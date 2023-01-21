@@ -68,7 +68,7 @@
                                 </constraints>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="gray" title="92">
-                                    <backgroundConfiguration key="background">
+                                    <backgroundConfiguration key="background" strokeWidth="2">
                                         <color key="strokeColor" red="0.18823529410000001" green="0.69019607839999997" blue="0.39837685070000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </backgroundConfiguration>
                                     <color key="baseForegroundColor" red="0.18823529410000001" green="0.69019607839999997" blue="0.39837685070000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
