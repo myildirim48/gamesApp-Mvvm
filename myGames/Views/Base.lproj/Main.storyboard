@@ -69,7 +69,6 @@
                     <connections>
                         <outlet property="homePageCollectionView" destination="Ek1-DL-LMD" id="bay-54-D1u"/>
                         <outlet property="homePageViewAiv" destination="zlS-kf-zo4" id="wwV-V8-ZcG"/>
-                        <segue destination="ZGY-JE-Jnx" kind="show" identifier="gotoDetailsView" id="Jj6-0o-yiD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -85,7 +84,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Oit-1w-6A3">
-                                <rect key="frame" x="0.0" y="103" width="393" height="666"/>
+                                <rect key="frame" x="0.0" y="59" width="393" height="759"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="large" id="Zkw-ck-P9P">
@@ -111,7 +110,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7Gf-HG-2mF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3013" y="456"/>
+            <point key="canvasLocation" x="3015" y="599"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="Uik-1L-ygH">
@@ -121,6 +120,7 @@
                     <tabBar key="tabBar" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="65i-3s-yJP">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="selectedImageTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
@@ -154,6 +154,9 @@
                         </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="E80-5s-QUz">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="pRM-mb-pWq"/>
                     </connections>
@@ -165,10 +168,10 @@
         <!--Search-->
         <scene sceneID="oC5-Hv-MHf">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" hidesBarsOnSwipe="YES" hidesBarsOnTap="YES" id="4pP-sK-Ew8" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="4pP-sK-Ew8" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Search" image="magnifyingglass" catalog="system" id="vXF-5S-jx6"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="xc9-2C-LLF">
+                    <navigationBar key="navigationBar" userInteractionEnabled="NO" contentMode="scaleToFill" id="xc9-2C-LLF">
                         <rect key="frame" x="0.0" y="59" width="393" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -237,7 +240,6 @@
                         <outlet property="searchField" destination="wIT-Qd-RSj" id="SNm-8P-tPS"/>
                         <outlet property="searchPageAiv" destination="mBE-Z1-dXh" id="kUS-ST-BRl"/>
                         <outlet property="searchTableView" destination="8bQ-yc-kqb" id="hVM-kH-XcK"/>
-                        <segue destination="ZGY-JE-Jnx" kind="show" identifier="detailsFromSearch" id="DTV-ct-TwI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jNb-lM-U4e" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -245,9 +247,6 @@
             <point key="canvasLocation" x="771.75572519083971" y="776.76056338028172"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="DTV-ct-TwI"/>
-    </inferredMetricsTieBreakers>
     <resources>
         <image name="gamecontroller.fill" catalog="system" width="128" height="79"/>
         <image name="magnifyingglass" catalog="system" width="128" height="117"/>

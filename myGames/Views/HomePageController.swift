@@ -138,7 +138,6 @@ class HomePageController: UIViewController {
                 print("Error while fetching data @30Days Released",err.localizedDescription)
             }
         }
-        
     }
     
     func fetchMetacritic(page:Int) {
@@ -162,7 +161,6 @@ class HomePageController: UIViewController {
                 break
             }
         }
-        
     }
     
     func fetchAllDatasWithGroup() {

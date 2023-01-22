@@ -24,6 +24,7 @@ class SearchController: UIViewController{
         super.viewDidLoad()
         navigationItem.title = searchConst
         self.setupTableView()
+        
         if searchedTotalData == 0 {
             searchTableView.isHidden = true
             messagelabel.isHidden = false
@@ -34,6 +35,7 @@ class SearchController: UIViewController{
     }
     
     @objc private func textDidChange(_ textField: UITextField) {
+        searchTableView.isHidden = true
         self.searchPageAiv.startAnimating()
         messagelabel.isHidden = true
         self.searchedGames?.results = []
@@ -42,9 +44,7 @@ class SearchController: UIViewController{
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false, block: { _ in
             self.getSearchGames(searchText: textField.text!, page: 1)
         })
-        
     }
-    
     private func setupTableView() {
         searchTableView.register(.init(nibName: searchCellID, bundle: nil), forCellReuseIdentifier: searchCellID)
         searchTableView.delegate = self
@@ -62,7 +62,7 @@ class SearchController: UIViewController{
                         self.searchTableView.reloadData()
                         self.searchPageAiv.stopAnimating()
                         self.searchTableView.isHidden = false
-
+                        
                     }else {
                         self.searchedGames = success
                         self.searchedTotalData = success.count
@@ -82,13 +82,14 @@ class SearchController: UIViewController{
 extension SearchController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let mainStoryBoard = UIStoryboard(name: "Main", bundle: Bundle.main)
-    guard let gameDetailPage = mainStoryBoard.instantiateViewController(withIdentifier: "gameDetailPage") as? DetailsPageController else {
-        return
-    }
-    guard let gameId = searchedGames?.results[indexPath.item].id else { return }
-
-    gameDetailPage.gameIdDetails = gameId
-    navigationController?.pushViewController(gameDetailPage, animated: true)
+        guard let gameDetailPage = mainStoryBoard.instantiateViewController(withIdentifier: "gameDetailPage") as? DetailsPageController else {
+            return
+        }
+        guard let gameId = searchedGames?.results[indexPath.item].id else { return }
+        
+        gameDetailPage.gameIdDetails = gameId
+        navigationController?.navigationBar.isHidden = false
+        self.navigationController!.pushViewController(gameDetailPage, animated: true)
     }
 }
 
@@ -115,8 +116,8 @@ extension SearchController: UITableViewDataSource {
                 getSearchGames(searchText: searchField.text ?? "", page: searchPageNum)
             }
         }
-            
-
+        
+        
         
         return cell
     }
