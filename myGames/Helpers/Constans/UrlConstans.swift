@@ -26,3 +26,13 @@ let page              : String = "page"
  
 let baseScheme        : String = "https"
 let baseHost          : String = "api.rawg.io"
+
+//MARK: - Cells
+let genresLabelConst : String = "Genres : "
+let releasedLabelConst : String = "Released Date : "
+let platformLabelConst : String = "Platforms : "
+let websiteLabelConst : String = "Website : "
+let publishersLabelConst : String = "Publishers : "
+let gamesConst : String = "Games"
+let searchConst : String = "Search"
+

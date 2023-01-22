@@ -13,5 +13,6 @@ class HomePageCollectionViewHeaderResuableCell: UICollectionReusableView {
     
     func setup(_ title: String) {
         headerTitleLabel.text = title
+        headerTitleLabel.addShadow(alpha: 0.2, opacity: 3, radius: 3)
     }
 }
