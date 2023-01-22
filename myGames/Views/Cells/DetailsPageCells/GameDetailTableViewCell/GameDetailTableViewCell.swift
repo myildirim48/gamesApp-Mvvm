@@ -20,17 +20,30 @@ class GameDetailTableViewCell: UITableViewCell {
     @IBOutlet weak var publishers: UILabel!
     @IBOutlet weak var gameName: UILabel!
     
+    @IBOutlet weak var platformLabel: UILabel!
+    
+    @IBOutlet weak var releasedLabel: UILabel!
+    @IBOutlet weak var websiteLabel: UILabel!
+    @IBOutlet weak var genresLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
-        gameName.addShadow()
         addTapgesture()
+        setupUI()
+    }
+    
+    private func setupUI() {
+        genresLabel.text = genresLabelConst
+        platformLabel.text = platformLabelConst
+        websiteLabel.text = websiteLabelConst
+        releasedLabel.text = releasedLabelConst
+        gameName.addShadow()
+
     }
     
     func addTapgesture() {
         let tapLabel = UITapGestureRecognizer(target: self, action: #selector(tapFunction))
         website.addGestureRecognizer(tapLabel)
-        
-    
+
     }
     
    @objc func tapFunction(sender:UITapGestureRecognizer) {
@@ -44,7 +57,13 @@ class GameDetailTableViewCell: UITableViewCell {
         didSet{
             if let gameData = gameDetails {
                 metacriticBtn.titleLabel?.text = String(gameData.metacritic)
-                descriptionLabel.text = gameData.descriptionRaw
+                
+                if gameData.descriptionRaw != " " {
+                    descriptionLabel.text = gameData.descriptionRaw
+                }else {
+                    descriptionLabel.text = " "
+                }
+                
                 gameName.text = gameData.name
                 releasedDate.text = gameData.released
                 
