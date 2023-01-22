@@ -10,6 +10,7 @@ import UIKit
 
 class DetailsPageController: UIViewController {
     
+    @IBOutlet weak var detailAiv: UIActivityIndicatorView!
     @IBOutlet weak var detailsTableView: UITableView!
     
     var gameIdDetails : Int = 0
@@ -24,6 +25,7 @@ class DetailsPageController: UIViewController {
         super.viewDidLoad()
         fetchScreenShots(gameid: gameIdDetails)
         fetchGameDetail(gameId: gameIdDetails)
+        
     }
     private func setupTableView(){
         detailsTableView.delegate = self
@@ -39,6 +41,7 @@ class DetailsPageController: UIViewController {
                  DispatchQueue.main.async {
                      self.screenShotsArr = result.results
                      self.setupTableView()
+                     self.detailAiv.stopAnimating()
                  }
               case .failure(let err):
                  print("Error @DetailsTableViewCell",err.localizedDescription)
@@ -50,7 +53,10 @@ class DetailsPageController: UIViewController {
         Responses.shared.fetchGameDetails(gameId: gameId) { gameDetail in
             switch gameDetail {
             case .success(let detailData):
-                self.gameDetaiLData = detailData
+                DispatchQueue.main.async {
+                    self.gameDetaiLData = detailData
+                    self.navigationItem.title = self.gameDetaiLData?.name
+                }
             case .failure(let err):
                 print("Error fetchGameDetail",err.localizedDescription)
             }

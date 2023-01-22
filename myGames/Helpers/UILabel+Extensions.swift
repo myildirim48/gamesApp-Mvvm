@@ -7,12 +7,11 @@
 
 import Foundation
 import UIKit
-
 extension UILabel {
-    func addShadow() {
+    func addShadow(alpha:CGFloat = 1,opacity: Float = 0.3,radius: CGFloat = 1) {
         layer.shadowOffset = CGSize(width: 2.5, height: 1.5)
-             layer.shadowOpacity = 0.3
-             layer.shadowRadius = 1
-        layer.shadowColor = CGColor.init(red: 0, green: 0, blue: 0, alpha: 1)
+             layer.shadowOpacity = opacity
+             layer.shadowRadius = radius
+        layer.shadowColor = CGColor.init(red: 0, green: 0, blue: 0, alpha: alpha)
     }
 }

@@ -33,25 +33,22 @@ extension EndPoints {
         return [URLQueryItem(name: apiKey, value: SecretKey.key)]
     }
     
-    static func getGamesbyDate(category: gamesBetweenDates = .lastThirtyDaysReleased, pageNumber: Int, dateFrom: String, dateTo: String) -> EndPoints{
-        switch category {
-        case .lastThirtyDaysReleased:
-            return EndPoints(path: gamesPath,
-                             queryItems: urlQueryApiKeyPage(pageNumber: pageNumber) +
-                             [URLQueryItem(name: "dates", value: dateFrom + "," + dateTo),
-                              URLQueryItem(name: "ordering", value: "released")])
-        case .bestOf2022:
+    static func getGamesbyDate(pageNumber: Int, dateFrom: String, dateTo: String) -> EndPoints{
             return EndPoints(path: gamesPath,
                              queryItems: urlQueryApiKeyPage(pageNumber: pageNumber) +
                              [URLQueryItem(name: "dates", value: dateFrom + "," + dateTo),
                               URLQueryItem(name: "ordering", value: "ratings_count")])
-        }
     }
     
     static func getAlltimeBest(pageNumber: Int) -> EndPoints {
         return EndPoints(path: gamesPath,
                          queryItems: urlQueryApiKeyPage(pageNumber: pageNumber) +
                          [URLQueryItem(name: "ordering", value: "ratings_count")])
+    }
+    static func getAlltimeBestMultiPlayer(pageNumber: Int) -> EndPoints {
+        return EndPoints(path: gamesPath,
+                         queryItems: urlQueryApiKeyPage(pageNumber: pageNumber) +
+                         [URLQueryItem(name: "tags", value: "multiplayer")])
     }
     
     static func getMetaCriticPlus90(pageNumber: Int) -> EndPoints {
@@ -71,5 +68,9 @@ extension EndPoints {
         return EndPoints(path: detailsPath(id: gameId),
                          queryItems: urlQueryApikey())
     }
-
+    //MARK: - Search
+    
+    static func searchGames(searchText: String,page: Int) -> EndPoints {
+        return EndPoints(path: gamesPath, queryItems: urlQueryApiKeyPage(pageNumber: page) + [URLQueryItem(name: "search", value: searchText)])
+    }
 }

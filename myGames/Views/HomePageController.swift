@@ -16,7 +16,7 @@ class HomePageController: UIViewController {
     private let cellNibNameKey = "HomePageCell"
     private let headerCellKey = "homePageHeaderCell"
     private let detailsPageKey = ""
-    private let sectionTitles : [String] = ["All Time Best","Best Of 2022","Released in last week","Metascore +90"]
+    private let sectionTitles : [String] = ["All Time Best","Best Of 2022","All Time Best Multiplayer","Metascore +90"]
     // Sections titles
     
     var gameResultGroup = [GameDataModel]()
@@ -43,6 +43,7 @@ class HomePageController: UIViewController {
         fetchAllDatasWithGroup()
         
         setupCollectionView()
+        navigationItem.title = gamesConst
         
     }
     
@@ -109,15 +110,15 @@ class HomePageController: UIViewController {
     func fetchLast30DaysReleased(page: Int){
         
         //---> Takes today's date and minus 30 days from today
-        let toDate = Date()
-        guard let fromDate = Calendar.current.date(byAdding: .day, value: -30, to: toDate) else { return }
-        
-        let dateTodayString = DataTransform.shared.dateToString(toDate)
-        let dateFromString = DataTransform.shared.dateToString(fromDate)
-        //---> Takes today's date and minus 30 days from today
-        
+//        let toDate = Date()
+//        guard let fromDate = Calendar.current.date(byAdding: .day, value: -30, to: toDate) else { return }
+//
+//        let dateTodayString = DataTransform.shared.dateToString(toDate)
+//        let dateFromString = DataTransform.shared.dateToString(fromDate)
+//        //---> Takes today's date and minus 30 days from today
+//
         self.dispatchGroup.enter()
-        Responses.shared.fetchInLast30Days(pageNumber: page, dateFrom: dateFromString, dateTo: dateTodayString) { lastResult in
+        Responses.shared.fetchBestMultiPlayerGames(pageNumber: page) { lastResult in
             
             switch lastResult {
             case .success(let successLast):
@@ -137,7 +138,6 @@ class HomePageController: UIViewController {
                 print("Error while fetching data @30Days Released",err.localizedDescription)
             }
         }
-        
     }
     
     func fetchMetacritic(page:Int) {
@@ -161,7 +161,6 @@ class HomePageController: UIViewController {
                 break
             }
         }
-        
     }
     
     func fetchAllDatasWithGroup() {
@@ -208,10 +207,9 @@ extension HomePageController : UICollectionViewDelegate {
         guard let gameDetailPage = mainStoryBoard.instantiateViewController(withIdentifier: "gameDetailPage") as? DetailsPageController else {
             return
         }
-        let gameId = gameResultGroup[indexPath.section].results[indexPath.item].id
+        guard let gameId = gameResultGroup[indexPath.section].results[indexPath.item].id else { return }
 
         gameDetailPage.gameIdDetails = gameId
-        
         navigationController?.pushViewController(gameDetailPage, animated: true)
     }
 }
@@ -237,7 +235,7 @@ extension HomePageController : UICollectionViewDataSource {
         cell.layer.cornerRadius = 10
         
         if totalCountOfDatas % 20 == 0 {
-            totalPages = gameResultGroup[indexPath.section].count / 20
+            totalPages = gameResultGroup[indexPath.section].count  / 20
             
         }else {
             totalPages = (totalCountOfDatas / 20) + 1

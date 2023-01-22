@@ -26,8 +26,8 @@ class HomePageCell: UICollectionViewCell {
     }
     
     func setupUI() {
-        genresLabel.text = "Genres : "
-        releadeDateLabel.text = "Release Date : "
+        genresLabel.text = genresLabelConst
+        releadeDateLabel.text = releasedLabelConst
         gameNameLabel.addShadow()
     }
     
@@ -37,9 +37,15 @@ class HomePageCell: UICollectionViewCell {
         }
         gameNameLabel.text = model.name
         
-        genresValueLabel.text = model.genres.map{$0.name ?? ""}.joined(separator: ", ")
+        if let genre = model.genres {
+            genresValueLabel.text = genre.map{$0.name ?? ""}.joined(separator: ", ")
+        }
 
-        gameImageView.kf.setImage(with: URL.init(string: model.backgroundImage))
+
+        if let imgUrl = model.backgroundImage{
+            gameImageView.kf.setImage(with: URL.init(string:imgUrl))
+        }
+   
         releaseDateValueLabel.text = model.released
         
         
