@@ -11,11 +11,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="GameDetailTableViewCell" rowHeight="226" id="KGk-i7-Jjw" customClass="GameDetailTableViewCell" customModule="myGames" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="355" height="226"/>
+        <tableViewCell contentMode="scaleToFill" restorationIdentifier="GameDetailTableViewCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="GameDetailTableViewCell" rowHeight="255" id="KGk-i7-Jjw" customClass="GameDetailTableViewCell" customModule="myGames" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="355" height="255"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="355" height="226"/>
+                <rect key="frame" x="0.0" y="0.0" width="355" height="255"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="255" horizontalCompressionResistancePriority="755" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yat-Wj-RJX">
@@ -33,72 +33,89 @@
                             <color key="baseBackgroundColor" systemColor="opaqueSeparatorColor"/>
                         </buttonConfiguration>
                     </button>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="756" text="Publishers" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UgV-p1-X8A">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="283" verticalCompressionResistancePriority="756" text="Publishers" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UgV-p1-X8A">
                         <rect key="frame" x="10" y="39" width="70.333333333333329" height="18"/>
                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Genres : " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tbC-JW-Qkg">
-                        <rect key="frame" x="10" y="67" width="65.333333333333329" height="18"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Genres : " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tbC-JW-Qkg">
+                        <rect key="frame" x="10" y="96" width="65.333333333333329" height="18"/>
                         <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GameName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K8H-t2-FtF">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="281" text="GameName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K8H-t2-FtF">
                         <rect key="frame" x="10" y="10" width="275" height="24"/>
                         <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="20"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="757" text="Genres" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Re-cS-Qe7">
-                        <rect key="frame" x="80.333333333333329" y="67" width="49.333333333333329" height="18"/>
+                        <rect key="frame" x="80.333333333333329" y="96" width="49.333333333333329" height="18"/>
                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="758" text="ParentPlatform" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qyo-Lk-5mh">
-                        <rect key="frame" x="98" y="95" width="100.33333333333331" height="18"/>
+                        <rect key="frame" x="98" y="124" width="100.33333333333331" height="18"/>
                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Platforms : " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pd5-8F-yBJ">
-                        <rect key="frame" x="10" y="95" width="83" height="18"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="281" text="Platforms : " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pd5-8F-yBJ">
+                        <rect key="frame" x="10" y="124" width="83" height="18"/>
                         <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Released Date : " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ram-YA-hK8">
-                        <rect key="frame" x="10" y="123" width="116" height="18"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="282" text="Released Date : " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ram-YA-hK8">
+                        <rect key="frame" x="10" y="152" width="116" height="18"/>
                         <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Website :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xhx-bf-ffV">
-                        <rect key="frame" x="10" y="193" width="67" height="18"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="283" text="Website :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xhx-bf-ffV">
+                        <rect key="frame" x="10" y="222" width="66.666666666666671" height="18"/>
                         <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="759" text="ReleasedDate" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X9q-sD-hxn">
-                        <rect key="frame" x="131" y="123" width="95" height="18"/>
+                        <rect key="frame" x="131" y="152" width="95" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="766" text="Website" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Sb-oT-5v0">
-                        <rect key="frame" x="87" y="193" width="56" height="18"/>
+                    <label opaque="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" verticalCompressionResistancePriority="766" text="Website" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Sb-oT-5v0">
+                        <rect key="frame" x="86.666666666666686" y="222" width="56" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="280" horizontalCompressionResistancePriority="755" verticalCompressionResistancePriority="1000" text="Description" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZCg-FD-WG7">
-                        <rect key="frame" x="10" y="151" width="335" height="18"/>
+                        <rect key="frame" x="10" y="180" width="335" height="18"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add to favorites : " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uG1-nP-T0C">
+                        <rect key="frame" x="10" y="67" width="127" height="19"/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="15"/>
+                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jJA-sh-Nqx">
+                        <rect key="frame" x="293" y="55" width="52" height="34.333333333333343"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <buttonConfiguration key="configuration" style="plain" image="star" catalog="system">
+                            <backgroundConfiguration key="background"/>
+                            <color key="baseForegroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </buttonConfiguration>
+                        <connections>
+                            <action selector="addFacBtnClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="iW1-DH-fE1"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
@@ -107,12 +124,15 @@
                     <constraint firstItem="UgV-p1-X8A" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="4Bu-Px-HIE"/>
                     <constraint firstItem="ZCg-FD-WG7" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="A0X-uy-snb"/>
                     <constraint firstItem="7Sb-oT-5v0" firstAttribute="leading" secondItem="Xhx-bf-ffV" secondAttribute="trailing" constant="10" id="BL7-Gd-trP"/>
-                    <constraint firstItem="4Re-cS-Qe7" firstAttribute="top" secondItem="UgV-p1-X8A" secondAttribute="bottom" constant="10" id="DGa-Ap-dNM"/>
+                    <constraint firstItem="4Re-cS-Qe7" firstAttribute="top" secondItem="uG1-nP-T0C" secondAttribute="bottom" constant="10" id="DGa-Ap-dNM"/>
                     <constraint firstItem="4Re-cS-Qe7" firstAttribute="leading" secondItem="tbC-JW-Qkg" secondAttribute="trailing" constant="5" id="Dd3-cG-l7r"/>
                     <constraint firstAttribute="bottom" secondItem="7Sb-oT-5v0" secondAttribute="bottom" constant="15" id="F7p-B4-EMM"/>
                     <constraint firstItem="Pd5-8F-yBJ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="FH7-qg-cx3"/>
                     <constraint firstItem="Pd5-8F-yBJ" firstAttribute="top" secondItem="tbC-JW-Qkg" secondAttribute="bottom" constant="10" id="G0w-49-S3e"/>
-                    <constraint firstItem="tbC-JW-Qkg" firstAttribute="top" secondItem="UgV-p1-X8A" secondAttribute="bottom" constant="10" id="Kyd-fc-MKc"/>
+                    <constraint firstItem="uG1-nP-T0C" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="HZ9-S8-lWS"/>
+                    <constraint firstItem="tbC-JW-Qkg" firstAttribute="top" secondItem="uG1-nP-T0C" secondAttribute="bottom" constant="10" id="Kyd-fc-MKc"/>
+                    <constraint firstItem="jJA-sh-Nqx" firstAttribute="top" secondItem="yat-Wj-RJX" secondAttribute="bottom" constant="10" id="LpH-r9-5JT"/>
+                    <constraint firstAttribute="trailing" secondItem="jJA-sh-Nqx" secondAttribute="trailing" constant="10" id="MGv-OI-Dju"/>
                     <constraint firstItem="K8H-t2-FtF" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="MJP-Oj-t4H"/>
                     <constraint firstAttribute="bottom" secondItem="Xhx-bf-ffV" secondAttribute="bottom" constant="15" id="Pah-0n-Z62"/>
                     <constraint firstItem="X9q-sD-hxn" firstAttribute="leading" secondItem="Ram-YA-hK8" secondAttribute="trailing" constant="5" id="SUu-0V-Q6F"/>
@@ -124,6 +144,7 @@
                     <constraint firstItem="Ram-YA-hK8" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="i6P-s3-8yo"/>
                     <constraint firstItem="Qyo-Lk-5mh" firstAttribute="top" secondItem="4Re-cS-Qe7" secondAttribute="bottom" constant="10" id="ie3-QU-QNa"/>
                     <constraint firstItem="Qyo-Lk-5mh" firstAttribute="leading" secondItem="Pd5-8F-yBJ" secondAttribute="trailing" constant="5" id="kwM-MO-41O"/>
+                    <constraint firstItem="uG1-nP-T0C" firstAttribute="top" secondItem="UgV-p1-X8A" secondAttribute="bottom" constant="10" id="p3x-5O-ANu"/>
                     <constraint firstAttribute="trailing" secondItem="ZCg-FD-WG7" secondAttribute="trailing" constant="10" id="sWL-Xn-UCJ"/>
                     <constraint firstItem="Xhx-bf-ffV" firstAttribute="top" secondItem="ZCg-FD-WG7" secondAttribute="bottom" constant="24" id="sWt-AV-AgY"/>
                     <constraint firstItem="K8H-t2-FtF" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="stT-Zm-xGF"/>
@@ -133,6 +154,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="addFavButton" destination="jJA-sh-Nqx" id="tdG-yI-OYK"/>
                 <outlet property="descriptionLabel" destination="ZCg-FD-WG7" id="fEX-c2-lrP"/>
                 <outlet property="gameDetailCellView" destination="H2p-sc-9uM" id="R1I-KJ-ekk"/>
                 <outlet property="gameName" destination="K8H-t2-FtF" id="Ecb-zO-zXX"/>
@@ -147,10 +169,11 @@
                 <outlet property="website" destination="7Sb-oT-5v0" id="zzA-MZ-qo4"/>
                 <outlet property="websiteLabel" destination="Xhx-bf-ffV" id="cjb-p0-7pp"/>
             </connections>
-            <point key="canvasLocation" x="183.96946564885496" y="80.281690140845072"/>
+            <point key="canvasLocation" x="183.96946564885496" y="90.492957746478879"/>
         </tableViewCell>
     </objects>
     <resources>
+        <image name="star" catalog="system" width="128" height="116"/>
         <systemColor name="opaqueSeparatorColor">
             <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

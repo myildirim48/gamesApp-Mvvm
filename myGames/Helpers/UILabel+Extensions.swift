@@ -7,8 +7,16 @@
 
 import Foundation
 import UIKit
-extension UILabel {
+extension UILabel{
     func addShadow(alpha:CGFloat = 1,opacity: Float = 0.3,radius: CGFloat = 1) {
+        layer.shadowOffset = CGSize(width: 2.5, height: 1.5)
+             layer.shadowOpacity = opacity
+             layer.shadowRadius = radius
+        layer.shadowColor = CGColor.init(red: 0, green: 0, blue: 0, alpha: alpha)
+    }
+}
+extension UIView {
+    func addShadowView(alpha:CGFloat = 1,opacity: Float = 0.3,radius: CGFloat = 1) {
         layer.shadowOffset = CGSize(width: 2.5, height: 1.5)
              layer.shadowOpacity = opacity
              layer.shadowRadius = radius

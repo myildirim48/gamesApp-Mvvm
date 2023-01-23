@@ -74,8 +74,8 @@ class HomePageController: UIViewController {
                     }
                     self.dispatchGroup.leave()
                 }
-            case .failure(_):
-                break
+            case .failure(let err):
+                self.showALert(title: "Error", message: err.localizedDescription)
             }
         }
     }
@@ -99,8 +99,8 @@ class HomePageController: UIViewController {
                     }
                     self.dispatchGroup.leave()
                 }
-            case .failure(_):
-                break
+            case .failure(let err):
+                self.showALert(title: "Error", message: err.localizedDescription)
             }
         }
     }
@@ -135,7 +135,7 @@ class HomePageController: UIViewController {
                     self.dispatchGroup.leave()
                 }
             case .failure(let err):
-                print("Error while fetching data @30Days Released",err.localizedDescription)
+                self.showALert(title: "Error", message: err.localizedDescription)
             }
         }
     }
@@ -157,10 +157,15 @@ class HomePageController: UIViewController {
                     }
                     self.dispatchGroup.leave()
                 }
-            case .failure(_):
-                break
+            case .failure(let err):
+                self.showALert(title: "Error", message: err.localizedDescription)
             }
         }
+    }
+    private func showALert(title:String,message:String){
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alertController.addAction(.init(title: "Ok", style: .default))
+        self.present(alertController, animated: true)
     }
     
     func fetchAllDatasWithGroup() {

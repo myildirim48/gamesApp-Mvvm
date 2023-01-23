@@ -7,9 +7,11 @@
 import Foundation
 import UIKit
 import WebKit
+import CoreData
 
 class GameDetailTableViewCell: UITableViewCell {
     
+    @IBOutlet weak var addFavButton: UIButton!
     @IBOutlet weak var gameDetailCellView: UIView!
     @IBOutlet weak var metacriticBtn: UIButton!
     @IBOutlet weak var website: UILabel!
@@ -25,25 +27,58 @@ class GameDetailTableViewCell: UITableViewCell {
     @IBOutlet weak var releasedLabel: UILabel!
     @IBOutlet weak var websiteLabel: UILabel!
     @IBOutlet weak var genresLabel: UILabel!
+
+   private let coreManager = CoreDataManager.shared    
+    private var addFavorites : Bool = false
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         addTapgesture()
-        setupUI()
+        checkLikes()
+    }
+    private func checkLikes() {
+        let idArr : [String] = coreManager.retrieveFromCoreData()
+        guard let gameID = gameDetails?.id else { return }
+        let idString = String(gameID)
+        idArr.forEach { id in
+            if id == idString {
+                addFavorites = true
+                addFavButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
+                
+            }else {
+                addFavorites = false
+            }
+        }
     }
     
+    @IBAction func addFacBtnClicked(_ sender: UIButton) {
+        switch addFavorites {
+        case false :
+            addFavButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
+            addFavorites = true
+            if let gameData = gameDetails {
+                coreManager.saveToCoreData(dataID: gameData.id, likedButton: addFavorites, comment:"" , date: Date.now)                
+            }
+        case true :
+            addFavButton.setImage(UIImage(systemName: "star"), for: .normal)
+            addFavorites = false
+            if let gameData = gameDetails {
+                coreManager.deleteFromCoreData(dataID: gameData.id)
+                print("succes")
+            }
+        }
+    }
     private func setupUI() {
         genresLabel.text = genresLabelConst
         platformLabel.text = platformLabelConst
         websiteLabel.text = websiteLabelConst
         releasedLabel.text = releasedLabelConst
         gameName.addShadow()
-
     }
     
     func addTapgesture() {
         let tapLabel = UITapGestureRecognizer(target: self, action: #selector(tapFunction))
         website.addGestureRecognizer(tapLabel)
-
     }
     
    @objc func tapFunction(sender:UITapGestureRecognizer) {
@@ -56,6 +91,7 @@ class GameDetailTableViewCell: UITableViewCell {
     var gameDetails : GameDetails? {
         didSet{
             if let gameData = gameDetails {
+                checkLikes()
                 metacriticBtn.titleLabel?.text = String(gameData.metacritic)
                 
                 if gameData.descriptionRaw != " " {
@@ -67,7 +103,7 @@ class GameDetailTableViewCell: UITableViewCell {
                 gameName.text = gameData.name
                 releasedDate.text = gameData.released
                 
-                website.text = gameData.website
+                website.text = "\(gameData.name) - Homepage"
                 
                 let publisData = gameData.publishers.map{$0.name}.joined(separator: ", ")
                 publishers.text = publisData
@@ -80,5 +116,4 @@ class GameDetailTableViewCell: UITableViewCell {
             }
         }
     }
-    
 }

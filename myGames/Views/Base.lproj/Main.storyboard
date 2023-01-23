@@ -110,7 +110,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7Gf-HG-2mF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3015" y="599"/>
+            <point key="canvasLocation" x="3112" y="4"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="Uik-1L-ygH">
@@ -126,6 +126,7 @@
                     <connections>
                         <segue destination="4dA-O7-QmC" kind="relationship" relationship="viewControllers" id="Smz-fn-URw"/>
                         <segue destination="4pP-sK-Ew8" kind="relationship" relationship="viewControllers" id="sHT-fZ-f5K"/>
+                        <segue destination="HvH-2v-ZHR" kind="relationship" relationship="viewControllers" id="yn8-QG-vuA"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ge8-dK-eiN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -191,7 +192,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Mw-zB-5bQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-28.244274809160306" y="777.46478873239437"/>
+            <point key="canvasLocation" x="1837.4045801526718" y="776.76056338028172"/>
         </scene>
         <!--Search Controller-->
         <scene sceneID="LEb-YA-lmK">
@@ -244,12 +245,72 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jNb-lM-U4e" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="771.75572519083971" y="776.76056338028172"/>
+            <point key="canvasLocation" x="2762.5954198473282" y="776.76056338028172"/>
+        </scene>
+        <!--Favorites-->
+        <scene sceneID="Shh-Hp-y9a">
+            <objects>
+                <viewController id="FHk-ZK-NVS" customClass="FavoritesController" customModule="myGames" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Rh0-nV-8rz">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="pL2-tE-9GN">
+                                <rect key="frame" x="0.0" y="103" width="393" height="666"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="large" id="ZoI-P3-o1U">
+                                <rect key="frame" x="0.0" y="404" width="393" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="color" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="pTz-qf-NUJ"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="pL2-tE-9GN" firstAttribute="leading" secondItem="pTz-qf-NUJ" secondAttribute="leading" id="1F1-gF-cAT"/>
+                            <constraint firstItem="pTz-qf-NUJ" firstAttribute="trailing" secondItem="pL2-tE-9GN" secondAttribute="trailing" id="VhG-Yi-DJA"/>
+                            <constraint firstItem="pL2-tE-9GN" firstAttribute="top" secondItem="pTz-qf-NUJ" secondAttribute="top" id="eV0-ZI-Lvt"/>
+                            <constraint firstItem="pTz-qf-NUJ" firstAttribute="bottom" secondItem="pL2-tE-9GN" secondAttribute="bottom" id="r6C-Sg-Ll9"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Favorites" id="46E-ni-vtG"/>
+                    <connections>
+                        <outlet property="favoritesAiv" destination="ZoI-P3-o1U" id="i1n-N0-sHu"/>
+                        <outlet property="favoritesTableView" destination="pL2-tE-9GN" id="0CD-jE-ndo"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="heD-tl-PAd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="182.44274809160305" y="776.76056338028172"/>
+        </scene>
+        <!--Favorites-->
+        <scene sceneID="pz6-Iu-PXu">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="HvH-2v-ZHR" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Favorites" image="star.fill" catalog="system" id="hoM-Pr-2J1"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="gNE-1f-aLM">
+                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" red="0.54089604589999996" green="0.64817176870000004" blue="0.71534863950000005" alpha="0.54744412249999996" colorSpace="custom" customColorSpace="sRGB"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="FHk-ZK-NVS" kind="relationship" relationship="rootViewController" id="wMd-e8-Gi2"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="los-L1-Bnd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-744.27480916030527" y="776.76056338028172"/>
         </scene>
     </scenes>
     <resources>
         <image name="gamecontroller.fill" catalog="system" width="128" height="79"/>
         <image name="magnifyingglass" catalog="system" width="128" height="117"/>
+        <image name="star.fill" catalog="system" width="128" height="116"/>
         <namedColor name="AccentColor">
             <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

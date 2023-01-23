@@ -106,7 +106,6 @@ extension SearchController: UITableViewDataSource {
             cell.searchGameResult = games
         }
         
-        
         if let totalFetchedGamesData = searchedGames?.results.count {
             if indexPath.item == totalFetchedGamesData - 1  && !isPagination &&  totalFetchedGamesData <= searchedTotalData {
                 print(indexPath.self)
@@ -116,9 +115,6 @@ extension SearchController: UITableViewDataSource {
                 getSearchGames(searchText: searchField.text ?? "", page: searchPageNum)
             }
         }
-        
-        
-        
         return cell
     }
     
