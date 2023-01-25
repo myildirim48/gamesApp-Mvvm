@@ -11,7 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchTableViewCell" rowHeight="179" id="KGk-i7-Jjw" customClass="SearchTableViewCell" customModule="myGames" customModuleProvider="target">
+        <tableViewCell contentMode="scaleToFill" restorationIdentifier="SearchTableViewCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchTableViewCell" rowHeight="179" id="KGk-i7-Jjw" customClass="SearchTableViewCell" customModule="myGames" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="350" height="179"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
@@ -24,8 +24,8 @@
                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="btO-nI-20o">
                         <rect key="frame" x="41" y="132" width="268" height="42"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Af-J5-mz3">
-                                <rect key="frame" x="5" y="0.0" width="44.666666666666664" height="20.333333333333332"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Af-J5-mz3">
+                                <rect key="frame" x="5" y="0.0" width="258" height="20.333333333333332"/>
                                 <color key="tintColor" red="0.54089604589999996" green="0.64817176870000004" blue="0.71534863950000005" alpha="0.54744412249999996" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
                                 <color key="textColor" systemColor="tertiarySystemGroupedBackgroundColor"/>
@@ -38,7 +38,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="ReleaseValue" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="90f-zp-Ov5">
-                                <rect key="frame" x="91" y="27" width="74.666666666666686" height="15"/>
+                                <rect key="frame" x="91" y="25.333333333333343" width="74.666666666666686" height="16.666666666666671"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" systemColor="tertiarySystemGroupedBackgroundColor"/>
                                 <nil key="highlightedColor"/>
@@ -46,13 +46,14 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="secondaryLabelColor"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="6Af-J5-mz3" secondAttribute="trailing" constant="5" id="F0F-SL-Kcb"/>
                             <constraint firstItem="m2p-CV-KjM" firstAttribute="leading" secondItem="btO-nI-20o" secondAttribute="leading" constant="5" id="Fno-o2-IS9"/>
                             <constraint firstItem="6Af-J5-mz3" firstAttribute="top" secondItem="btO-nI-20o" secondAttribute="top" id="geP-4b-7OM"/>
                             <constraint firstItem="m2p-CV-KjM" firstAttribute="top" secondItem="6Af-J5-mz3" secondAttribute="bottom" constant="4.6699999999999999" id="jF2-He-c7D"/>
                             <constraint firstItem="90f-zp-Ov5" firstAttribute="leading" secondItem="m2p-CV-KjM" secondAttribute="trailing" constant="5" id="lPw-zy-Rlm"/>
                             <constraint firstItem="6Af-J5-mz3" firstAttribute="leading" secondItem="btO-nI-20o" secondAttribute="leading" constant="5" id="lcc-ps-MUA"/>
                             <constraint firstAttribute="bottom" secondItem="90f-zp-Ov5" secondAttribute="bottom" id="o7G-fL-TGx"/>
-                            <constraint firstItem="90f-zp-Ov5" firstAttribute="top" secondItem="btO-nI-20o" secondAttribute="top" constant="27" id="opE-yb-37p"/>
+                            <constraint firstItem="90f-zp-Ov5" firstAttribute="top" secondItem="6Af-J5-mz3" secondAttribute="bottom" constant="5" id="opE-yb-37p"/>
                             <constraint firstAttribute="bottom" secondItem="m2p-CV-KjM" secondAttribute="bottom" id="zs7-vW-RYX"/>
                         </constraints>
                     </view>
