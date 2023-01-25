@@ -8,6 +8,7 @@ import Foundation
 import UIKit
 import WebKit
 import CoreData
+import UserNotifications
 
 class GameDetailTableViewCell: UITableViewCell {
     
@@ -28,13 +29,18 @@ class GameDetailTableViewCell: UITableViewCell {
     @IBOutlet weak var websiteLabel: UILabel!
     @IBOutlet weak var genresLabel: UILabel!
 
-   private let coreManager = CoreDataManager.shared    
+   private let coreManager = CoreDataManager.shared
+    
     private var addFavorites : Bool = false
     
+    private let notificationManager = NotificationManager.shared
+
     override func awakeFromNib() {
         super.awakeFromNib()
         addTapgesture()
         checkLikes()
+        notificationManager.center.delegate = self
+
     }
     private func checkLikes() {
         let gameArr : [MyGames] = coreManager.retrieveFromCoreData()
@@ -56,14 +62,16 @@ class GameDetailTableViewCell: UITableViewCell {
             addFavButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
             addFavorites = true
             if let gameData = gameDetails {
-                coreManager.saveToCoreData(dataID: gameData.id, likedButton: addFavorites, comment:"" , date: Date.now)                
+                coreManager.saveToCoreData(dataID: gameData.id, likedButton: addFavorites, comment:"" , date: Date.now)
+                notificationManager.createNotfications(title: "Game Saved", subTitle: "Succesfully Saved", body: "You added \(gameData.name) to your favorites.")
             }
         case true :
             addFavButton.setImage(UIImage(systemName: "star"), for: .normal)
             addFavorites = false
             if let gameData = gameDetails {
                 coreManager.deleteFromCoreData(dataID: gameData.id)
-                print("succes")
+                notificationManager.createNotfications(title: "Game Deleted", subTitle: "Succesfully Deleted", body: "You deleted \(gameData.name) from your favorites.")
+                
             }
         }
     }
@@ -114,5 +122,17 @@ class GameDetailTableViewCell: UITableViewCell {
                 parentPlatformslabel.text = parentPlatforms
             }
         }
+    }
+}
+extension GameDetailTableViewCell: UNUserNotificationCenterDelegate {
+    
+    // Uygulama açıkken bir bildirimin geldiğini belirtir.
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        completionHandler()
+    }
+    
+    /// Uygulama açıkken gelen bildirimlerin ekranda gözükmesini sağlayan fonksiyon
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.banner, .badge, .sound])
     }
 }

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import UserNotifications
 
 class WriteCommentCell: UITableViewCell,UITextViewDelegate {
 
@@ -19,6 +20,8 @@ class WriteCommentCell: UITableViewCell,UITextViewDelegate {
     private var gamesArr = [MyGames]()
     private var save = true
     
+    private let notificationManager = NotificationManager.shared
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -26,7 +29,7 @@ class WriteCommentCell: UITableViewCell,UITextViewDelegate {
         commentText.textColor = .lightGray
         commentText.text = "Leave your comment here..."
         
-        
+        notificationManager.center.delegate = self
     }
     
     func textView(_ textView: UITextView,
@@ -55,11 +58,26 @@ class WriteCommentCell: UITableViewCell,UITextViewDelegate {
                 coreManager.deleteFromCoreData(dataID: gameIDForComment)
                 save = false
                 coreManager.saveToCoreData(dataID: gameIDForComment, likedButton: true, comment: commentText.text, date: Date.now)
+                notificationManager.createNotfications(title: "Game Updated", subTitle: "Succesfully Saved", body: "You updated your favorites.")
             }
         }
         if save {
             coreManager.saveToCoreData(dataID: gameIDForComment, likedButton: true, comment: commentText.text, date: .now)
+            notificationManager.createNotfications(title: "Game Saved", subTitle: "Succesfully Saved", body: "You added this game to your favorites.")
         }
     
+    }
+}
+
+extension WriteCommentCell: UNUserNotificationCenterDelegate {
+    
+    // Uygulama açıkken bir bildirimin geldiğini belirtir.
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        completionHandler()
+    }
+    
+    /// Uygulama açıkken gelen bildirimlerin ekranda gözükmesini sağlayan fonksiyon
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.banner, .badge, .sound])
     }
 }

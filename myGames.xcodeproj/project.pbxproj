@@ -10,6 +10,8 @@
 		28B41496B107F256CFF646CE /* Pods_myGames.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD52FA926F2CCA66E3F5D353 /* Pods_myGames.framework */; };
 		740389632980A64F00621BCE /* SearchPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740389622980A64F00621BCE /* SearchPageViewModel.swift */; };
 		740389652980A94D00621BCE /* FavoritesPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740389642980A94D00621BCE /* FavoritesPageViewModel.swift */; };
+		740389682980ABAF00621BCE /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740389672980ABAF00621BCE /* NotificationManager.swift */; };
+		7403896A2980B00A00621BCE /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740389692980B00A00621BCE /* Task.swift */; };
 		74075CFA2974859500FA83E8 /* HomePageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74075CF92974859500FA83E8 /* HomePageViewModel.swift */; };
 		74176ED429746A2E001FE0D1 /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74176ED329746A2E001FE0D1 /* Networking.swift */; };
 		74176ED629747570001FE0D1 /* Responses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74176ED529747570001FE0D1 /* Responses.swift */; };
@@ -56,6 +58,8 @@
 		305A4023348A964E260CE858 /* Pods-myGames.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-myGames.release.xcconfig"; path = "Target Support Files/Pods-myGames/Pods-myGames.release.xcconfig"; sourceTree = "<group>"; };
 		740389622980A64F00621BCE /* SearchPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPageViewModel.swift; sourceTree = "<group>"; };
 		740389642980A94D00621BCE /* FavoritesPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesPageViewModel.swift; sourceTree = "<group>"; };
+		740389672980ABAF00621BCE /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		740389692980B00A00621BCE /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		74075CF92974859500FA83E8 /* HomePageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageViewModel.swift; sourceTree = "<group>"; };
 		74176ED329746A2E001FE0D1 /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
 		74176ED529747570001FE0D1 /* Responses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Responses.swift; sourceTree = "<group>"; };
@@ -122,6 +126,15 @@
 				305A4023348A964E260CE858 /* Pods-myGames.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		740389662980AB9B00621BCE /* NotificationManager */ = {
+			isa = PBXGroup;
+			children = (
+				740389672980ABAF00621BCE /* NotificationManager.swift */,
+				740389692980B00A00621BCE /* Task.swift */,
+			);
+			path = NotificationManager;
 			sourceTree = "<group>";
 		};
 		74176ED7297477D6001FE0D1 /* Views */ = {
@@ -295,6 +308,7 @@
 		74A5AB2B297089BB0089A9EE /* myGames */ = {
 			isa = PBXGroup;
 			children = (
+				740389662980AB9B00621BCE /* NotificationManager */,
 				74C41F6D297F1DCB0002A44C /* CoreData */,
 				7490128C2973251800F27CDB /* Service */,
 				74901284297323CE00F27CDB /* DataModel */,
@@ -482,6 +496,7 @@
 				74901286297323E300F27CDB /* GameDataModel.swift in Sources */,
 				74D4006E297833B200004BC7 /* UILabel+Extensions.swift in Sources */,
 				747A9ED9297E858F00935602 /* MyGamesDB.xcdatamodeld in Sources */,
+				740389682980ABAF00621BCE /* NotificationManager.swift in Sources */,
 				747A9EDB297E8E3A00935602 /* FavoritesController.swift in Sources */,
 				74176ED429746A2E001FE0D1 /* Networking.swift in Sources */,
 				747A9ED1297C744900935602 /* SearchController.swift in Sources */,
@@ -498,6 +513,7 @@
 				749040652979B7110036E3BF /* DetailsTableViewCell.swift in Sources */,
 				7490404A297972B40036E3BF /* DetailsPageController.swift in Sources */,
 				74176EDB29747823001FE0D1 /* HomePageCell.swift in Sources */,
+				7403896A2980B00A00621BCE /* Task.swift in Sources */,
 				74A5AB2F297089BB0089A9EE /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
