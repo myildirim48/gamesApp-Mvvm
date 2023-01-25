@@ -31,7 +31,7 @@ class CoreDataManager {
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     //Save to core data
-    func saveToCoreData(dataID: Int,likedButton:Bool,comment:String,date:Date, entity: EntityEnum = .mygames) {
+    func saveToCoreData(dataID: Int,likedButton:Bool,comment:String, date:Date, entity: EntityEnum = .mygames) {
         let context = appDelegate.persistentContainer.viewContext
         if let entity = NSEntityDescription.entity(forEntityName: entity.string, in: context) {
         let listObject = NSManagedObject(entity: entity, insertInto: context)
@@ -41,7 +41,7 @@ class CoreDataManager {
           listObject.setValue(date, forKey: "commentDate")
         do {
           try context.save()
-            
+            print("Saved successfully")
         } catch {
           print("ERROR while saving data to CoreData")
         }
@@ -49,8 +49,8 @@ class CoreDataManager {
     }
     
     //Fetch
-    func retrieveFromCoreData() -> [String] {
-       var idArr : [String] = []
+    func retrieveFromCoreData() -> [MyGames] {
+       var idArr : [MyGames] = []
      let context = appDelegate.persistentContainer.viewContext
      
      let request = NSFetchRequest<MyGames>(entityName: "MyGames")
@@ -58,13 +58,7 @@ class CoreDataManager {
      do {
          let results = try context.fetch(request)
          if results.count > 0 {
-             for result in results as [NSManagedObject] {
-                             if let id = result.value(forKey: "id") as? String{
-                                 idArr.append(id)
-                                 let comment = result.value(forKey: "commentText")
-                                 
-                             }
-             }
+                 idArr = results
          }
      } catch {
        print("ERROR while fetching data from CoreData")
@@ -120,9 +114,10 @@ class CoreDataManager {
                for result in results as! [NSManagedObject] {
                    if let id = result.value(forKey: "id")  {
                        if id as! String == idString {
-                           context.setValue(likedButton, forKey: "like")
+                           
                            context.setValue(comment, forKey: "commentText")
                            context.setValue(date, forKey: "commentDate")
+                           context.setValue(likedButton, forKey: "like")
                            do {
                                try context.save()
                                

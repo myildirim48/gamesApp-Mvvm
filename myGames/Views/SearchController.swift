@@ -20,6 +20,8 @@ class SearchController: UIViewController{
     private var searchPageNum : Int = 0
     private var timer = Timer()
     
+    private let viewModel = SearchPageViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = searchConst
@@ -52,30 +54,34 @@ class SearchController: UIViewController{
     }
     
     private func getSearchGames(searchText:String,page:Int) {
-        Responses.shared.searchGames(searchQuery: searchText, page: page) { searchRes in
-            switch searchRes {
-            case .success(let success):
-                DispatchQueue.main.async {
-                    if self.searchedGames?.count ?? 0 > 0 {
-                        self.searchedGames?.results += success.results
-                        self.isPagination = false
-                        self.searchTableView.reloadData()
-                        self.searchPageAiv.stopAnimating()
-                        self.searchTableView.isHidden = false
-                        
-                    }else {
-                        self.searchedGames = success
-                        self.searchedTotalData = success.count
-                        self.searchTableView.reloadData()
-                        self.searchPageAiv.stopAnimating()
-                        self.searchTableView.isHidden = false
-                    }
+        
+        viewModel.searchGames(with: searchText, page: page)
+        viewModel.searchedData = { search in
+            DispatchQueue.main.async {
+                if self.searchedGames?.count ?? 0 > 0 {
+                    self.searchedGames?.results += search.results
+                    self.isPagination = false
+                    self.searchTableView.reloadData()
+                    self.searchPageAiv.stopAnimating()
+                    self.searchTableView.isHidden = false
+                    
+                }else {
+                    self.searchedGames = search
+                    self.searchedTotalData = search.count
+                    self.searchTableView.reloadData()
+                    self.searchPageAiv.stopAnimating()
+                    self.searchTableView.isHidden = false
                 }
-            case .failure(let failure):
-                print("Error at searchController",failure.localizedDescription)
             }
         }
-        
+        viewModel.showErrorView = { err in
+            self.makeAlert(title: "Error", message: err)
+        }
+    }
+    private func makeAlert(title:String,message:String){
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alertController.addAction(.init(title: "Ok", style: .default))
+        self.present(alertController, animated: true)
     }
 }
 

@@ -37,14 +37,13 @@ class GameDetailTableViewCell: UITableViewCell {
         checkLikes()
     }
     private func checkLikes() {
-        let idArr : [String] = coreManager.retrieveFromCoreData()
+        let gameArr : [MyGames] = coreManager.retrieveFromCoreData()
         guard let gameID = gameDetails?.id else { return }
         let idString = String(gameID)
-        idArr.forEach { id in
-            if id == idString {
+        gameArr.forEach { id in
+            if id.id == idString {
                 addFavorites = true
                 addFavButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
-                
             }else {
                 addFavorites = false
             }

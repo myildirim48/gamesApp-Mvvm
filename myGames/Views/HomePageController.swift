@@ -7,11 +7,12 @@
 
 import UIKit
 
-
 class HomePageController: UIViewController {
     
     @IBOutlet weak var homePageViewAiv: UIActivityIndicatorView!
     @IBOutlet weak var homePageCollectionView: UICollectionView!
+    
+    private let viewModel = HomePageViewModel()
     
     private let cellNibNameKey = "HomePageCell"
     private let headerCellKey = "homePageHeaderCell"
@@ -36,144 +37,105 @@ class HomePageController: UIViewController {
     fileprivate var isPagination = false
     
     fileprivate var timer : Timer?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        fetchAllDatasWithGroup()
-        
+        fetchAllData()
         setupCollectionView()
         navigationItem.title = gamesConst
-        
     }
-    
     //MARK: - data fetch functions
-    
+
     let dispatchGroup = DispatchGroup()
     let queue = DispatchQueue.global(qos: .default)
     
     func fetchAllTimeBestData(page: Int) {
+        print(1)
         self.dispatchGroup.enter()
-        Responses.shared.fetchAllTimeBest(pageNumber:page) { result in
-            
-            switch result {
-            case .success(let successData):
-                if self.gameResultGroup.count > 2 { //For pagination
-                    
-                    DispatchQueue.main.async {
-                        self.gameResultGroup[0].results += successData.results
-                        self.homePageCollectionView.reloadData()
-                    }
-                    
-                }else {
-                    
-                    print("1")//For bugfix
-                    
-                    self.queue.async(group:self.dispatchGroup){
-                        self.gameResultFirst = successData
-                    }
-                    self.dispatchGroup.leave()
-                }
-            case .failure(let err):
-                self.showALert(title: "Error", message: err.localizedDescription)
+        viewModel.fetchAllTimeBest(with: page)
+        viewModel.allTimeBestData = {  data in
+            if self.gameResultGroup.count > 3 {
+                self.gameResultGroup[0].results += data.results
+                self.homePageCollectionView.reloadData()
+            }else{
+                self.queue.async(group:self.dispatchGroup){
+                    self.gameResultFirst = data
+                                }
+            self.dispatchGroup.leave()
             }
         }
     }
-    
+
     func fetchBestOf2022(page: Int) {
+        print(2)
         self.dispatchGroup.enter()
-        Responses.shared.fetchBestof2022(pageNumber: page) { resultBest in
-            
-            switch resultBest {
-            case .success(let success):
-                //For pagination --->
-                if self.gameResultGroup.count > 2 {
-                    DispatchQueue.main.async {
-                        self.gameResultGroup[1].results += success.results
-                        self.homePageCollectionView.reloadData()
-                    }
-                }else{
-                    print("2")
-                    self.queue.async(group:self.dispatchGroup) {
-                        self.gameResultSecond = success
-                    }
-                    self.dispatchGroup.leave()
-                }
-            case .failure(let err):
-                self.showALert(title: "Error", message: err.localizedDescription)
+        viewModel.fetchBestOf2022(with: page)
+        viewModel.bestOf2022 = { best in
+            if self.gameResultGroup.count > 3 {
+                self.gameResultGroup[1].results += best.results
+                self.homePageCollectionView.reloadData()
+            }else{
+                self.queue.async(group:self.dispatchGroup){
+                    self.gameResultSecond = best
+                                }
+            self.dispatchGroup.leave()
             }
+            
         }
     }
     
-    
-    
-    func fetchLast30DaysReleased(page: Int){
-        
-        //---> Takes today's date and minus 30 days from today
-//        let toDate = Date()
-//        guard let fromDate = Calendar.current.date(byAdding: .day, value: -30, to: toDate) else { return }
-//
-//        let dateTodayString = DataTransform.shared.dateToString(toDate)
-//        let dateFromString = DataTransform.shared.dateToString(fromDate)
-//        //---> Takes today's date and minus 30 days from today
-//
+    func fetcBestOfMultiplayer(page: Int){
+        print(3)
         self.dispatchGroup.enter()
-        Responses.shared.fetchBestMultiPlayerGames(pageNumber: page) { lastResult in
-            
-            switch lastResult {
-            case .success(let successLast):
-                if self.gameResultGroup.count > 2 {
-                    DispatchQueue.main.async {
-                        self.gameResultGroup[2].results += successLast.results
-                        self.homePageCollectionView.reloadData()
-                    }
-                }else{
-                    print("3")
-                    self.queue.async(group:self.dispatchGroup) {
-                        self.gameResultThird = successLast
-                    }
-                    self.dispatchGroup.leave()
-                }
-            case .failure(let err):
-                self.showALert(title: "Error", message: err.localizedDescription)
+        viewModel.fetchBestOfMultiPlayer(with: page)
+        viewModel.bestOfMulti = { multi in
+            if self.gameResultGroup.count > 3 {
+                self.gameResultGroup[2].results += multi.results
+                self.homePageCollectionView.reloadData()
+            }else{
+                self.queue.async(group:self.dispatchGroup){
+                    self.gameResultThird = multi
+                                }
+            self.dispatchGroup.leave()
             }
         }
     }
     
     func fetchMetacritic(page:Int) {
+        print(4)
         self.dispatchGroup.enter()
-        Responses.shared.fetchMetacritic(pageNumber: page) { resultMeta in
-            switch resultMeta {
-            case.success(let successData):
-                if self.gameResultGroup.count > 2 {
-                    DispatchQueue.main.async {
-                        self.gameResultGroup[3].results += successData.results
-                        self.homePageCollectionView.reloadData()
-                    }
-                }else {
-                    print("3")
-                    self.queue.async(group: self.dispatchGroup) {
-                        self.gameResultFourth = successData
-                    }
-                    self.dispatchGroup.leave()
-                }
-            case .failure(let err):
-                self.showALert(title: "Error", message: err.localizedDescription)
+        viewModel.fetchMetacriticData(with: page)
+        viewModel.metacriticData = { meta in
+            if self.gameResultGroup.count > 3 {
+                self.gameResultGroup[3].results += meta.results
+                self.homePageCollectionView.reloadData()
+            }else{
+                self.queue.async(group:self.dispatchGroup){
+                    self.gameResultFourth = meta
+                                }
+            self.dispatchGroup.leave()
+
             }
         }
     }
-    private func showALert(title:String,message:String){
+    
+    private func showAlert() {
+        viewModel.showErrorView = { [weak self] err in
+            self?.makeAlert(title: "Error", message: err)
+        }
+    }
+    private func makeAlert(title:String,message:String){
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alertController.addAction(.init(title: "Ok", style: .default))
         self.present(alertController, animated: true)
     }
-    
-    func fetchAllDatasWithGroup() {
+
+    func fetchAllData(){
         fetchAllTimeBestData(page: pageNumOfBestOfAll)
-        fetchLast30DaysReleased(page: pageNumOfLastWeekReleased)
         fetchBestOf2022(page: pageNumOfBestOf2022)
+        fetcBestOfMultiplayer(page: pageNumOfLastWeekReleased)
         fetchMetacritic(page: pageNumOfMetacritic)
-        
+
         dispatchGroup.notify(queue: .main) { [self] in
             if let data1 = gameResultFirst{
                 gameResultGroup.append(data1)
@@ -208,12 +170,12 @@ extension HomePageController : UICollectionViewDelegate {
     // TO:DO did select to detailVC
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-            let mainStoryBoard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        let mainStoryBoard = UIStoryboard(name: "Main", bundle: Bundle.main)
         guard let gameDetailPage = mainStoryBoard.instantiateViewController(withIdentifier: "gameDetailPage") as? DetailsPageController else {
             return
         }
         guard let gameId = gameResultGroup[indexPath.section].results[indexPath.item].id else { return }
-
+        
         gameDetailPage.gameIdDetails = gameId
         navigationController?.pushViewController(gameDetailPage, animated: true)
     }
@@ -246,7 +208,6 @@ extension HomePageController : UICollectionViewDataSource {
             totalPages = (totalCountOfDatas / 20) + 1
         }
         
-        //I did this control here for performance. indexpath 18+ checking for pagination. from api in every response total 20 result is coming
         
         if indexPath.item >= 17 {
             switch indexPath.section {
@@ -273,7 +234,7 @@ extension HomePageController : UICollectionViewDataSource {
                 return cell
             case 1:
                 if indexPath.item == gameDataResult.count - 1   && !isPagination && pageNumOfBestOf2022 < totalPages {
-                
+                    
                     cell.homepageCellView.isHidden = true
                     cell.homepageCellAiv.startAnimating()
                     
@@ -305,7 +266,7 @@ extension HomePageController : UICollectionViewDataSource {
                     timer?.invalidate()
                     timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false, block: { _ in
                         
-                        self.fetchLast30DaysReleased(page: self.pageNumOfLastWeekReleased)
+                        self.fetcBestOfMultiplayer(page: self.pageNumOfLastWeekReleased)
                         
                         cell.homepageCellView.isHidden = false
                         cell.homepageCellAiv.stopAnimating()
@@ -323,7 +284,7 @@ extension HomePageController : UICollectionViewDataSource {
                     
                     pageNumOfMetacritic += 1
                     isPagination = true
-                
+                    
                     timer?.invalidate()
                     timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false, block: { _ in
                         
@@ -389,7 +350,6 @@ extension HomePageController: UICollectionViewDelegateFlowLayout {
             return section
         }
     }
-    
     private func supplementaryHeaderItem() -> NSCollectionLayoutBoundarySupplementaryItem {
         .init(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .estimated(40)), elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
     }

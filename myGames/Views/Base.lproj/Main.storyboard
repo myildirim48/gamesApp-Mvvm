@@ -293,6 +293,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="gNE-1f-aLM">
                         <rect key="frame" x="0.0" y="59" width="393" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" red="0.54089604589999996" green="0.64817176870000004" blue="0.71534863950000005" alpha="0.54744412249999996" colorSpace="custom" customColorSpace="sRGB"/>
                         </textAttributes>

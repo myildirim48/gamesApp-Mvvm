@@ -61,6 +61,7 @@
                 <outlet property="commentText" destination="Osi-vZ-Ztq" id="Hve-Hk-NLq"/>
                 <outlet property="leaveCommentLabel" destination="1Je-oa-GgR" id="iS5-XM-BVv"/>
                 <outlet property="saveButton" destination="ntm-Vr-6dG" id="g1I-t7-Nd1"/>
+                <outlet property="writeCommentView" destination="H2p-sc-9uM" id="trr-pD-YZK"/>
             </connections>
             <point key="canvasLocation" x="10.687022900763358" y="18.661971830985916"/>
         </tableViewCell>

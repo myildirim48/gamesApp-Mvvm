@@ -17,8 +17,8 @@ class FavoritesController: UIViewController {
     private var favGamesArr : [GameDataModelResult] = []
     
     private let coreManager = CoreDataManager.shared
-    private var idArray = [String]()
-        
+    private var gameArr = [MyGames]()
+        private let viewModel = FavoritesPageViewModel()
     override func viewWillAppear(_ animated: Bool) {
         favoritesAiv.startAnimating()
         favoritesTableView.isHidden = true
@@ -26,7 +26,7 @@ class FavoritesController: UIViewController {
     }
     
     func refreshData() {
-        idArray = coreManager.retrieveFromCoreData()
+        gameArr = coreManager.retrieveFromCoreData()
         fetchGamesFromCoreData()
         setupTableView()
     }
@@ -39,27 +39,27 @@ class FavoritesController: UIViewController {
     
     private func fetchGamesFromCoreData(){
         favGamesArr = []
-        idArray.forEach { gameID in
-            fetchFavoritesGames(gameid: gameID)
+        gameArr.forEach { gameID in
+            if let id = gameID.id {
+                fetchFavoritesGames(gameid: id)
+            }
         }
     }
     
     //Fetch with api
     private func fetchFavoritesGames(gameid:String) {
         favGamesArr = []
-        guard let gameIdInt = Int(gameid) else { return }
-        Responses.shared.fetchFavoriteGames(gameId: gameIdInt) { gameDetail in
-            switch gameDetail {
-            case .success(let detailData):
-                DispatchQueue.main.async {
-                    self.favGamesArr.append(detailData)
-                    self.favoritesTableView.reloadData()
-                    self.favoritesTableView.isHidden = false
-                    self.favoritesAiv.stopAnimating()
-                }
-            case .failure(let err):
-                self.showAlert(title: "Error", message: err.localizedDescription)
+        viewModel.fectFavorite(with: gameid)
+        viewModel.searchedData={ data in
+            DispatchQueue.main.async {
+                self.favGamesArr.append(data)
+                self.favoritesTableView.reloadData()
+                self.favoritesTableView.isHidden = false
+                self.favoritesAiv.stopAnimating()
             }
+        }
+        viewModel.showErrorView = { err in
+            self.showAlert(title: "Error", message: err)
         }
     }
     
@@ -73,7 +73,15 @@ class FavoritesController: UIViewController {
 
 extension FavoritesController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let mainStoryBoard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        guard let gameDetailPage = mainStoryBoard.instantiateViewController(withIdentifier: "gameDetailPage") as? DetailsPageController else {
+            return
+        }
+        guard let gameId = favGamesArr[indexPath.item].id else { return }
         
+        gameDetailPage.gameIdDetails = gameId
+        navigationController?.navigationBar.isHidden = false
+        self.navigationController!.pushViewController(gameDetailPage, animated: true)
     }
 }
 
