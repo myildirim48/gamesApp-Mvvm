@@ -27,6 +27,5 @@
 - API : [RAWG.io](https://https://rawg.io/apidocs/)
 
  #### Gif
-(https://user-images.githubusercontent.com/82388073/214463145-c04bbf7a-3763-4e91-a3a5-9822a44f9450.mp4 =450)
 
-<img src="https://user-images.githubusercontent.com/82388073/214463145-c04bbf7a-3763-4e91-a3a5-9822a44f9450.mp4" width="48">
+<img src="https://user-images.githubusercontent.com/82388073/214463145-c04bbf7a-3763-4e91-a3a5-9822a44f9450.mp4" width="450">
