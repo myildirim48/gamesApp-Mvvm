@@ -41,4 +41,8 @@ class Responses {
     func searchGames(searchQuery: String,page:Int,completion: @escaping(Result<GameDataModel,Error>) -> ()) {
         GameNetwork.shared.networkRequest(request: EndPoints.searchGames(searchText: searchQuery, page: page), completion: completion)
     }
-}
+    
+    func fetchFavoriteGames(gameId:Int,completion: @escaping(Result<GameDataModelResult,Error>) -> ()) {
+        GameNetwork.shared.networkRequest(request: EndPoints.getDetailsOfGame(gameId: gameId), completion: completion)
+    }
+    }
